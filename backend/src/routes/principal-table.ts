@@ -6,7 +6,11 @@ const router = Router();
 
 router.get("/principal-table", async (req, res) => {
     try {
-        const principalTable = await prisma.principal.findMany();
+        const principalTable = await prisma.principal.findMany({
+            orderBy: {
+                console: "asc"
+            }
+        });
         res.json(principalTable);
     } catch (error) {
         console.error("Error fetching principal table:", error);
@@ -38,3 +42,5 @@ router.post("/principal-table", async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 })
+
+export default router;
