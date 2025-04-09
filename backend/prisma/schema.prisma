@@ -15,8 +15,8 @@ model Principal {
   tipo String
   iniciado DateTime
   finalizado DateTime
-  tempo Int
-  nota String
+  tempo String
+  nota Int
   dificuldade String
   zeramento String
 

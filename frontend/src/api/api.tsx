@@ -2,19 +2,20 @@ const BASE_URL = "http://localhost:3000/api";
 
 //! Define Game interface
 export interface Game {
+    id?: number;
     nome: string;
     console: string;
     genero: string;
     tipo: string;
     iniciado: Date;
     finalizado: Date;
-    tempo: number;
+    tempo: string;
     nota: number;
     dificuldade: string;
-    zeramento: boolean;
+    zeramento: string;
 }
 
-//! Function to fetch data from the API
+//! Function to fetch data from the principal table
 export const getPrincipalTable = async () => {
     try {
         const response = await fetch(`${BASE_URL}/principal-table`);
