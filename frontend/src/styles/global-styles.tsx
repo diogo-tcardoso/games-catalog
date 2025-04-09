@@ -18,5 +18,6 @@ export const GlobalStyles = createGlobalStyle`
 
     ul {
         padding: 15px;
+        list-style-type: none;
     }
 `;

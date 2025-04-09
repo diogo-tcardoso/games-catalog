@@ -11,7 +11,7 @@ model Principal {
   id Int @id @default(autoincrement())
   nome String
   console String
-  gênero String
+  genero String
   tipo String
   iniciado DateTime
   finalizado DateTime
