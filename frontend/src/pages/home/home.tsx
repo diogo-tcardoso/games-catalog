@@ -20,7 +20,6 @@ export default function Home() {
             <Header />
             <Menu />
             <div>
-                <h1 className="text-2xl font-bold text-center">Jogos Finalizados</h1>
                 <GameForm onCreate={fetchGames} />
                 <div className="overflow-x-auto">
                     <GameList games={games} />

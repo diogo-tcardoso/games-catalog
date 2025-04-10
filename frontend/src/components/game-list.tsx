@@ -1,4 +1,5 @@
 import { Game } from "../api/api";
+import { Columns } from "../styles/game-list-style";
 
 export default function GameList({ games }: { games: Game[] }) {
     const sortedGames = [...games].sort((a, b) => a.nome.localeCompare(b.nome));
@@ -9,16 +10,16 @@ export default function GameList({ games }: { games: Game[] }) {
             <table>
                 <thead>
                     <tr>
-                        <th>Nome</th>
-                        <th>Console</th>
-                        <th>Gênero</th>
-                        <th>Tipo</th>
-                        <th>Iniciado</th>
-                        <th>Finalizado</th>
-                        <th>Tempo</th>
-                        <th>Nota</th>
-                        <th>Dificuldade</th>
-                        <th>Zeramento</th>
+                        <Columns>Nome</Columns>
+                        <Columns>Console</Columns>
+                        <Columns>Gênero</Columns>
+                        <Columns>Tipo</Columns>
+                        <Columns>Iniciado</Columns>
+                        <Columns>Finalizado</Columns>
+                        <Columns>Tempo</Columns>
+                        <Columns>Nota</Columns>
+                        <Columns>Dificuldade</Columns>
+                        <Columns>Zeramento</Columns>
                     </tr>
                 </thead>
                 <tbody>
