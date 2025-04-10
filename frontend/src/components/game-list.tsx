@@ -1,11 +1,12 @@
 import { Game } from "../api/api";
 import { Columns } from "../styles/game-list-style";
 
-export default function GameList({ games }: { games: Game[] }) {
+export default function GameList({ games, onAddClick }: { games: Game[]; onAddClick: () => void }) {
     const sortedGames = [...games].sort((a, b) => a.nome.localeCompare(b.nome));
 
     return (
         <div>
+            <button onClick={onAddClick}>Adicionar Jogo</button>
             <h2>Jogos finalizados</h2>
             <table>
                 <thead>
