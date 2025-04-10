@@ -20,7 +20,18 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        setGame({...game, [name]: name === "nota" ? Number(value) : value });
+        let updatedValue: string | number | Date = value;
+
+        if (name === "nota"){
+            updatedValue = Number(value);
+        } else if (name === "iniciado" || name === "finalizado") {
+            updatedValue = new Date(value);
+        }
+
+        setGame((prevGame) => ({
+            ...prevGame,
+            [name]: updatedValue
+        }))
     };
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

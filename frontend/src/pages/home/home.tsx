@@ -24,7 +24,7 @@ export default function Home() {
             <Menu />
             <div>
                 <div>
-                    <GameList games={games} onAddClick={() => setIsModalOpen(true)}/>
+                    <GameList games={games} onAddClick={() => setIsModalOpen(true)} onDeleteComplete={fetchGames}/>
                     {isModalOpen && (
                         <Modal onClose={() => setIsModalOpen(false)}>
                             <GameForm onCreate={() => {

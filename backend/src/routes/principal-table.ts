@@ -43,4 +43,20 @@ router.post("/principal-table", async (req, res) => {
     }
 })
 
+router.delete("/principal-table/:id", async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        await prisma.principal.delete({
+            where: {
+                id: Number(id),
+            },
+        });
+        res.status(204).json({ message: "Principal deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting principal:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+})
+
 export default router;

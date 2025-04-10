@@ -48,3 +48,13 @@ export const addNewGame = async (gameData: Game): Promise<Game[]> => {
         throw error;
     }
 }
+
+//! Function to delete an entry in the principal table
+export async function deleteGame(id:number) {
+    const res = await fetch(`${BASE_URL}/principal-table/${id}`, {
+        method: "DELETE"
+    });
+    if (!res.ok) {
+        throw new Error("Failed to delete game");
+    }
+}
