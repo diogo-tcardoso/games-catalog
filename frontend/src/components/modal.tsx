@@ -1,5 +1,5 @@
 import React from "react";
-import { ModalStyle, ModalOverlay, CloseButton } from "../styles/modal-styles";
+import { ModalStyle, ModalOverlay, CloseButton } from "../styles/components-styles/modal-styles";
 
 interface ModalProps {
     children: React.ReactNode;

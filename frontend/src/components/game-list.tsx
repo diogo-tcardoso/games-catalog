@@ -1,5 +1,5 @@
 import { deleteGame, Game } from "../api/api";
-import { Columns, DeleteButton, GamesData, TableHeader, AddButton } from "../styles/game-list-style";
+import { Columns, DeleteButton, GamesData, TableHeader, AddButton } from "../styles/components-styles/game-list-style";
 import { IoTrashOutline,} from "react-icons/io5";
 import { IconContext } from "react-icons";
 

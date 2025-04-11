@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Game, addNewGame } from "../api/api";
-import { Form, FormGroup, Label, Button } from "../styles/game-form-styles";
+import { Form, FormGroup, Label, Button } from "../styles/components-styles/game-form-styles";
 
 const initialState: Game = {
     nome: "",

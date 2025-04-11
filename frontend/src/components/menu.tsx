@@ -1,15 +1,17 @@
+import { Link, MenuTitle } from "../styles/menu-styles"
+
 export default function Menu(){
     return(
         <>
             <nav>
-                <h1>Menu</h1>
+                <MenuTitle>Menu</MenuTitle>
                 <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/systems">Sistemas</a></li>
-                    <li><a href="/genres">Gêneros</a></li>
-                    <li><a href="/types">Tipos</a></li>
-                    <li><a href="/series">Séries</a></li>
-                    <li><a href="/stats">Estatísticas</a></li>
+                    <li><Link href="/">Home</Link></li>
+                    <li><Link href="/systems">Sistemas</Link></li>
+                    <li><Link href="/genres">Gêneros</Link></li>
+                    <li><Link href="/types">Tipos</Link></li>
+                    <li><Link href="/series">Séries</Link></li>
+                    <li><Link href="/stats">Estatísticas</Link></li>
                 </ul>
             </nav>
         </>
