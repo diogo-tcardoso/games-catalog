@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Game, addNewGame } from "../api/api";
-import { Form, FormGroup, Label, Button } from "../styles/components-styles/game-form-styles";
+import { Form, FormGroup, Label, Button, DataInput } from "../styles/components-styles/game-form-styles";
 
 const initialState: Game = {
     nome: "",
@@ -47,68 +47,68 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
     return (
         <Form onSubmit={handleSubmit}>
             <div>
-                <h1 style={{color: "#000000", marginRight: "20px", marginLeft: "20px"}}>Form Jogo Finalizado</h1>
+                <h1 style={{color: "#000000", marginRight: "20px", marginLeft: "20px", fontFamily: "Winky Rough"}}>Form Jogo Finalizado</h1>
             </div>
 
-            <div>
+            <div style={{display: "flex", flexWrap: "wrap", justifyContent: "space-between"}}>
                 <FormGroup>
                     <Label>
                         Nome:
-                        <input type="text" name="nome" value={game.nome} onChange={handleChange} style={{marginLeft:"10px"}} />
+                        <DataInput type="text" name="nome" value={game.nome} onChange={handleChange} style={{marginLeft:"10px"}} />
                     </Label>
                 </FormGroup>
                 <FormGroup>
                     <Label>
                         Console:
-                        <input type="text" name="console" value={game.console} onChange={handleChange} style={{marginLeft:"10px"}}/>
+                        <DataInput type="text" name="console" value={game.console} onChange={handleChange} style={{marginLeft:"10px"}}/>
                     </Label>
                 </FormGroup>
                 <FormGroup>
                     <Label>
                         Genero:
-                        <input type="text" name="genero" value={game.genero} onChange={handleChange} style={{marginLeft:"10px"}}/>
+                        <DataInput type="text" name="genero" value={game.genero} onChange={handleChange} style={{marginLeft:"10px"}}/>
                     </Label>
                 </FormGroup>
                 <FormGroup>
                     <Label>
                         Tipo:
-                        <input type="text" name="tipo" value={game.tipo} onChange={handleChange} style={{marginLeft:"10px"}}/>
+                        <DataInput type="text" name="tipo" value={game.tipo} onChange={handleChange} style={{marginLeft:"10px"}}/>
                     </Label>
                 </FormGroup>
                 <FormGroup>
                     <Label>
                         Iniciado:
-                        <input type="date" name="iniciado" value={game.iniciado.toISOString().split('T')[0]} onChange={handleChange} style={{marginLeft:"10px"}}/>
+                        <DataInput type="date" name="iniciado" value={game.iniciado.toISOString().split('T')[0]} onChange={handleChange} style={{marginLeft:"10px"}}/>
                     </Label>
                 </FormGroup>
                 <FormGroup>
                     <Label>
                         Finalizado:
-                        <input type="date" name="finalizado" value={game.finalizado.toISOString().split('T')[0]} onChange={handleChange} style={{marginLeft:"10px"}}/>
+                        <DataInput type="date" name="finalizado" value={game.finalizado.toISOString().split('T')[0]} onChange={handleChange} style={{marginLeft:"10px"}}/>
                     </Label>
                 </FormGroup>
                 <FormGroup>
                     <Label>
                         Tempo:
-                        <input type="text" name="tempo" value={game.tempo} onChange={handleChange} placeholder="000:00:00" pattern="^\d{1,3}:\d{2}:\d{2}$" style={{marginLeft:"10px"}}/>
+                        <DataInput type="text" name="tempo" value={game.tempo} onChange={handleChange} placeholder="000:00:00" pattern="^\d{1,3}:\d{2}:\d{2}$" style={{marginLeft:"10px"}}/>
                     </Label>
                 </FormGroup>
                 <FormGroup>
                     <Label>
                         Nota:
-                        <input type="number" name="nota" value={game.nota} onChange={handleChange} style={{marginLeft:"10px"}}/>
+                        <DataInput type="number" name="nota" value={game.nota} onChange={handleChange} style={{marginLeft:"10px"}}/>
                     </Label>
                 </FormGroup>
                 <FormGroup>
                     <Label>
                         Dificuldade:
-                        <input type="text" name="dificuldade" value={game.dificuldade} onChange={handleChange} style={{marginLeft:"10px"}}/>
+                        <DataInput type="text" name="dificuldade" value={game.dificuldade} onChange={handleChange} style={{marginLeft:"10px"}}/>
                     </Label>
                 </FormGroup>
                 <FormGroup>
                     <Label>
                         Zeramento:
-                        <input type="text" name="zeramento" value={game.zeramento} onChange={handleChange} style={{marginLeft:"10px"}}/>
+                        <DataInput type="text" name="zeramento" value={game.zeramento} onChange={handleChange} style={{marginLeft:"10px"}}/>
                     </Label>
                 </FormGroup>
             </div>
@@ -117,7 +117,6 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
                 <Button type="submit">Salvar Jogo</Button>
                 <Button type="reset" onClick={() => setGame(initialState)}>Limpar</Button>
             </div>
-
         </Form>
     )
 }

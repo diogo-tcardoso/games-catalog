@@ -5,36 +5,52 @@ export const Form = styled.form`
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    font-family: 'Roboto', sans-serif;
     max-width: 600px;
-    flex-wrap: wrap;
-    border: 2px solid #444;
+    border: 2px solid #005dab;
+    border-radius: 10px;
     padding: 0.2rem;
 `
 
 export const FormGroup = styled.div`
     display: flex;
     flex-direction: row;
-    margin: 0.2rem;
+    font-family: 'Roboto', sans-serif;
+    margin: 0.1rem;
 `
 
 export const Label = styled.label`
     display: flex;
     margin: 2px;
     font-weight: bold;
+    font-family: 'Roboto', sans-serif;
     color: #000000;
     justify-content: space-between;
 `
 
 export const Button = styled.button`
     background-color: #444;
-    color: #eeeeee;
-    border: none;
+    color: #ffffff;
+    border: 1px solid #005dab;
+    background: linear-gradient(180deg, #0095f7 0%, #0076d3 100%);
+    border-radius: 20px;
+    font-family: 'Roboto', sans-serif;
     padding: 0.5rem;
     cursor: pointer;
+    font-size: 16px;
     font-weight: bold;
     margin: 0.5rem;
 
     &:hover {
-        background-color:rgb(23, 2, 130);
+        border: 1px solid #004f8d;
+        background: linear-gradient(180deg, #0076d3 0%, #005dab 100%);
     }
+`
+
+export const DataInput = styled.input`
+    background: #ffffff;
+    color: #000000;
+    border: 2px solid #004f8d;
+    border-radius: 7px;
+    font-family: 'Roboto', sans-serif;
 `

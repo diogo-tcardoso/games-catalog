@@ -1,4 +1,4 @@
-import { Link, MenuTitle } from "../styles/menu-styles"
+import { Link, MenuTitle, MenuPages } from "../styles/menu-styles"
 
 export default function Menu(){
     return(
@@ -6,12 +6,12 @@ export default function Menu(){
             <nav>
                 <MenuTitle>Menu</MenuTitle>
                 <ul>
-                    <li><Link href="/">Home</Link></li>
-                    <li><Link href="/systems">Sistemas</Link></li>
-                    <li><Link href="/genres">Gêneros</Link></li>
-                    <li><Link href="/types">Tipos</Link></li>
-                    <li><Link href="/series">Séries</Link></li>
-                    <li><Link href="/stats">Estatísticas</Link></li>
+                    <MenuPages><Link href="/">Home</Link></MenuPages>
+                    <MenuPages><Link href="/systems">Sistemas</Link></MenuPages>
+                    <MenuPages><Link href="/genres">Gêneros</Link></MenuPages>
+                    <MenuPages><Link href="/types">Tipos</Link></MenuPages>
+                    <MenuPages><Link href="/series">Séries</Link></MenuPages>
+                    <MenuPages><Link href="/stats">Estatísticas</Link></MenuPages>
                 </ul>
             </nav>
         </>

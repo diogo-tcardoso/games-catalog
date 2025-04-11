@@ -33,7 +33,7 @@ export default function GameList({
     return (
         <div>
             <TableHeader>
-                <h2 style={{fontSize:"30px", color:"#ffffff", marginBottom:"5px"}}>Jogos finalizados</h2>
+                <h2 style={{fontSize:"30px", color:"#ffffff", marginBottom:"5px", marginTop: "5px"}}>JOGOS FINALIZADOS</h2>
                 <AddButton onClick={onAddClick}>Adicionar Jogo</AddButton>
             </TableHeader>
 

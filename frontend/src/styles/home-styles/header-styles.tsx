@@ -4,16 +4,16 @@ export const HeaderContainer = styled.header`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5px;
-    background-color: #282c34;
+    background: linear-gradient(180deg, #0095f7 0%, #0076d3 100%);
     color: white;
 `;
 
 export const HeaderTitle = styled.h1`
-    font-size: 2rem;
+    font-size: 2.5rem;
+    font-family: "Winky Rough", sans-serif;
+    letter-spacing: 10px;
     font-weight: bold;
     text-align: center;
-    font-family: 'Monaco', monospace;
     text-transform: uppercase;
-    color: #61dafb;
+    color: #ffffff;
 `;

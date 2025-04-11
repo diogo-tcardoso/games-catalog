@@ -3,36 +3,40 @@ import styled from "styled-components";
 export const Columns = styled.th`
     text-align: center;
     padding: 3px;
-    border: 1px solid #FFFFFF;
     font-weight: bold;
     font-size: 17px;
-    color: #f2f2f2;
-    background-color:rgb(0, 60, 164);
+    color: #ffffff;
+    border: 1px solid #005dab;
+    background: linear-gradient(180deg, #0095f7 0%, #0076d3 100%);
     text-transform: uppercase;
     letter-spacing: 1px;
+    font-family: "Winky Rough", sans-serif;
 `
 
 export const TableHeader = styled.div `
     display: flex;
     justify-content: space-evenly;
+    justify-items: center;
+    font-family: "Winky Rough", sans-serif;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 `
 
 export const GamesData = styled.td`
     text-align: center;
-    border: 2px solid #FFFFFF;
+    border: 2px solid #eff8ff;
+    background: #eff8ff;
     padding-left: 5px;
     padding-right: 5px;
-    color:rgb(255, 255, 255);
+    color: #021527;
 `
 
 export const DeleteButton = styled.button`
     background: white;
     border-radius: 10px;
-    border: 2px solid rgb(0, 60, 164);
+    border: 2px solid #005dab;
     padding: 2px;
-    color: rgb(0, 60, 164);
+    color: #005dab;
     padding-bottom: -5px;
     margin-left: 10px;
 
@@ -44,17 +48,18 @@ export const DeleteButton = styled.button`
 `
 
 export const AddButton = styled.button`
-    background: white;
     border-radius: 20px;
-    border: 2px solid rgb(0, 60, 164);
-    color: rgb(0, 60, 164);
+    border: 1px solid #005dab;
+    background: linear-gradient(180deg, #0095f7 0%, #0076d3 100%);
+    color: #ffffff;
     font-weight: bold;
     font-size: 16px;
+    width: 150px;
     padding: 5px;
 
     &:hover {
-        background-color: rgb(0, 60, 164);
+        border: 1px solid #004f8d;
+        background: linear-gradient(180deg, #0076d3 0%, #005dab 100%);
         cursor: pointer;
-        color: #ffffff;
     }
 `
