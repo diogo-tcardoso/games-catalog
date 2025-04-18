@@ -1,7 +1,7 @@
 import Menu from "../../components/menu";
 import Header from "./header";
 import PrincipalTableData from "./principal-table-data";
-import { Section, Aside } from "../../styles/home-styles/home-styles";
+import { Section, Aside, Table } from "../../styles/home-styles/home-styles";
 
 
 export default function Home() {
@@ -13,9 +13,9 @@ export default function Home() {
                     <Aside>
                         <Menu />
                     </Aside>
-                    <div>
+                    <Table>
                         <PrincipalTableData />
-                    </div>
+                    </Table>
                 </Section>
             </main>
         </>

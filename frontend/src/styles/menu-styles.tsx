@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { Link as RouterLink } from "react-router-dom";
 
-export const Link = styled.a`
+export const Link = styled(RouterLink)`
     color: #ffffff;
     font-size: 18px;
     padding: 3px;
