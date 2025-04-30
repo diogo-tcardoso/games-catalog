@@ -1,24 +1,25 @@
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
+    binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 model Principal {
-  id Int @id @default(autoincrement())
-  nome String
-  console String
-  genero String
-  tipo String
-  iniciado DateTime
-  finalizado DateTime
-  tempo String
-  nota Int
-  dificuldade String
-  zeramento String
+    id          Int      @id @default(autoincrement())
+    nome        String
+    console     String
+    genero      String
+    tipo        String
+    iniciado    DateTime
+    finalizado  DateTime
+    tempo       String
+    nota        Int
+    dificuldade String
+    zeramento   String
 
-  @@map("principal")
+    @@map("principal")
 }
