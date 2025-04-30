@@ -67,8 +67,8 @@ export default function GameList({
                             <GamesData>{game.zeramento}</GamesData>
                             <td>
                                 <DeleteButton onClick={() => handleDelete(game.id as number)} title="Excluir Jogo">
-                                    <IconContext.Provider value={{ title:"delete", size: "20px", style:{marginBottom:"-2px"}}}>
-                                        <IoTrashOutline />
+                                    <IconContext.Provider value={{ size: "20px", style:{marginBottom:"-2px" }}}>
+                                        <IoTrashOutline title="delete" />
                                     </IconContext.Provider>
                                 </DeleteButton>
                             </td>

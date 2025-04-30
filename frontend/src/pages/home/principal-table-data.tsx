@@ -19,14 +19,14 @@ export default function PrincipalTableData() {
         return (
             <>
                 <GameList games={games} onAddClick={() => setIsModalOpen(true)} onDeleteComplete={fetchGames}/>
-                        {isModalOpen && (
-                            <Modal onClose={() => setIsModalOpen(false)}>
-                                <GameForm onCreate={() => {
-                                    fetchGames();
-                                    setIsModalOpen(false);
-                                }} />
-                            </Modal>
-                        )}
+                {isModalOpen && (
+                    <Modal onClose={() => setIsModalOpen(false)}>
+                        <GameForm onCreate={() => {
+                            fetchGames();
+                            setIsModalOpen(false);
+                        }} />
+                    </Modal>
+                )}
             </>
         )
 }
