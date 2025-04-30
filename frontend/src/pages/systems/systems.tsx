@@ -13,7 +13,6 @@ export default function Systems() {
                         <Menu />
                     </Aside>
                     <Table>
-                        <h1>Systems</h1>
                         <SystemsPage />
                     </Table>
                 </Section>

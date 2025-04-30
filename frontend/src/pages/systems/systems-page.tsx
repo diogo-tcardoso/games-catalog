@@ -23,7 +23,7 @@ export default function SystemsPage() {
     ]);
 
     const [name, setName] = useState('');
-    const [color, setColor] = useState('#cccccc');
+    const [color, setColor] = useState('#ffffff');
 
     const handleAddSystem = () => {
     if (!name.trim()) return;
@@ -51,7 +51,7 @@ export default function SystemsPage() {
 
     return (
         <div style={{ padding: '1rem' }}>
-            <h2>Gerenciamento de Sistemas</h2>
+            <h2 style={{ color: '#ffffff', fontWeight: 'bold', fontFamily: 'Winky Rough, saint-serif', fontSize: '2rem'}}>Gerenciamento de Sistemas</h2>
 
             <div style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center' }}>
                 <SystemsInput
@@ -72,10 +72,10 @@ export default function SystemsPage() {
 
             <table border={1} cellPadding={8}>
             <thead>
-                <tr>
-                <th style={{width:'10rem'}}>Nome</th>
-                <th>Jogos Zerados</th>
-                <th>Tempo Total (h)</th>
+                <tr style={{ backgroundColor: '#005dab', color: '#ffffff', fontWeight: 'bold', fontFamily: 'Winky Rough, sans-serif', fontSize:'1.3rem' }}>
+                    <th style={{width:'10rem'}}>Nome</th>
+                    <th>Jogos Zerados</th>
+                    <th>Tempo Total (h)</th>
                 </tr>
             </thead>
             <tbody>

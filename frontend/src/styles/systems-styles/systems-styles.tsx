@@ -12,7 +12,7 @@ export const SystemsInput = styled.input`
 
 export const SystemColor = styled.input`
     padding: 0;
-    border: 3px solid #005dab;
+    border: 2px solid #005dab;
     border-radius: 10px;
     background-color: #005dab;
 `
