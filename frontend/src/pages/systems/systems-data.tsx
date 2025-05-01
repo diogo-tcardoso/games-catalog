@@ -1,5 +1,5 @@
 import { System, Game } from "../../api/api";
-import { IoTrashOutline,} from "react-icons/io5";
+import { IoTrashOutline } from "react-icons/io5";
 import { IconContext } from "react-icons";
 import { DeleteButton } from "../../styles/components-styles/game-list-style";
 
@@ -20,10 +20,16 @@ export default function SystemsData({ systems, games, onDelete }: Props) {
     const countGames = (systemId: number) =>
         games.filter((game) => game.systemId === systemId).length;
 
-    const sumTime = (systemId: number) =>
-        games
+    const sumTime = (systemId: number): number => {
+        const toSeconds = (tempo: string) => {
+            const [h, m, s] = tempo.split(':').map(Number);
+            return h * 3600 + m * 60 + s;
+        };
+
+        return games
             .filter((game) => game.systemId === systemId)
-            .reduce((acc, cur) => acc + Number(cur.tempo), 0);
+            .reduce((acc, cur) => acc + toSeconds(cur.tempo), 0);
+    };
 
     return (
         <table border={1} cellPadding={8}>
@@ -41,15 +47,15 @@ export default function SystemsData({ systems, games, onDelete }: Props) {
                         <td style={{ backgroundColor: system.color, color: '#fff', textAlign: 'center' }}>
                             {system.name}
                         </td>
-                        <td style={{ backgroundColor: system.color, textAlign: 'center' }}>
+                        <td style={{ backgroundColor: system.color, textAlign: 'center', color: '#fff' }}>
                             {countGames(system.id)}
                         </td>
-                        <td style={{ backgroundColor: system.color, textAlign: 'center' }}>
+                        <td style={{ backgroundColor: system.color, textAlign: 'center', color: '#fff' }}>
                             {formatTime(sumTime(system.id))}
                         </td>
                         <td style={{ backgroundColor: system.color, textAlign: 'center' }}>
                             <DeleteButton onClick={() => onDelete(system.id)} style={{ marginRight: "8px" }}>
-                                <IconContext.Provider value={{ size: "20px", style:{marginBottom:"-2px"}}}>
+                                <IconContext.Provider value={{ size: "20px", style: { marginBottom: "-2px" } }}>
                                     <IoTrashOutline title="delete" />
                                 </IconContext.Provider>
                             </DeleteButton>
