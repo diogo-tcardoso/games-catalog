@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { Game, addNewGame, getSystems } from "../../api/api";
-import { Form, FormGroup, Label, Button, DataInput, SystemSelect } from "../../styles/components-styles/game-form-styles";
-import { System } from "../../api/api";
+import { Game, Genre, getGenres, addNewGame, getSystems, System } from "../../api/api";
+import { Form, FormGroup, Label, Button, DataInput, SystemSelect, CalendarInput, GenreSelect } from "../../styles/components-styles/game-form-styles";
+import DatePicker from "react-datepicker";
 
 const initialState: Game = {
     nome: "",
-    genero: "",
+    genreId: 0,
     tipo: "",
     iniciado: new Date(),
     finalizado: new Date(),
@@ -19,7 +19,12 @@ const initialState: Game = {
 export default function GameForm({onCreate}: {onCreate: () => void}) {
     const [game, setGame] = useState<Game>(initialState);
     const [systems, setSystems] = useState<System[]>([]);
+    const [genres, setGenres] = useState<Genre[]>([]);
     const [loadingSystems, setLoadingSystems] = useState(true);
+    const [loadingGenres, setLoadingGenres] = useState(true);
+    const [iniciado, setIniciado] = useState<Date | null>(null);
+    const [finalizado, setFinalizado] = useState<Date | null>(null);
+
 
     useEffect(() => {
         const fetchSystems = async () => {
@@ -34,7 +39,22 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
         };
 
         fetchSystems();
-    })
+    }, [])
+
+    useEffect(() => {
+        const fetchGenres = async () => {
+            try {
+                const response = await getGenres();
+                setGenres(response);
+            } catch (error) {
+                console.error("Error fetching genres:", error);
+            } finally {
+                setLoadingGenres(false);
+            }
+        };
+
+        fetchGenres();
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -56,21 +76,35 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
+    
         if (systems.length === 0) {
             alert("Cadastre um sistema antes de cadastrar jogos.");
             return;
         }
-
+    
+        if (genres.length === 0) {
+            alert("Cadastre um gênero antes de cadastrar jogos.");
+            return;
+        }
+    
         try {
-            await addNewGame(game);
+            const gameToSubmit = {
+                ...game,
+                iniciado: iniciado || new Date(),
+                finalizado: finalizado || new Date(),
+            };
+    
+            await addNewGame(gameToSubmit);
             setGame(initialState);
+            setIniciado(null);
+            setFinalizado(null);
             onCreate();
         } catch (error) {
             console.error("Erro ao adicionar novo jogo:", error);
             alert("Erro ao salvar o jogo. Verifique os dados e tente novamente.");
         }
     };
+    
 
     return (
         <Form onSubmit={handleSubmit}>
@@ -107,7 +141,20 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
                 <FormGroup>
                     <Label>
                         Genero:
-                        <DataInput type="text" name="genero" value={game.genero} onChange={handleChange} style={{marginLeft:"10px"}}/>
+                            <GenreSelect name="genreId" value={game.genreId} onChange={handleChange} style={{marginLeft:"10px"}}>
+                            {loadingGenres ? (
+                                <option>Carregando gêneros...</option>
+                            ) : (
+                                <>
+                                    <option value={0}>Selecione um sistema</option>
+                                    {genres.map((genre) => (
+                                        <option key={genre.id} value={genre.id}>
+                                            {genre.name}
+                                        </option>
+                                    ))}
+                                </>
+                            )}
+                            </GenreSelect>
                     </Label>
                 </FormGroup>
                 <FormGroup>
@@ -118,14 +165,14 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
                 </FormGroup>
                 <FormGroup>
                     <Label>
-                        Iniciado:
-                        <DataInput type="date" name="iniciado" value={game.iniciado.toISOString().split('T')[0]} onChange={handleChange} style={{marginLeft:"10px"}}/>
+                        Iniciado:&nbsp;
+                        <DatePicker selected={iniciado} onChange={(date) => setIniciado(date)} dateFormat="dd/MM/yyyy" customInput={<CalendarInput />} />
                     </Label>
                 </FormGroup>
                 <FormGroup>
                     <Label>
-                        Finalizado:
-                        <DataInput type="date" name="finalizado" value={game.finalizado.toISOString().split('T')[0]} onChange={handleChange} style={{marginLeft:"10px"}}/>
+                        Finalizado:&nbsp;
+                        <DatePicker selected={finalizado} onChange={(date) => setFinalizado(date)} dateFormat="dd/MM/yyyy" customInput={<CalendarInput />} />
                     </Label>
                 </FormGroup>
                 <FormGroup>

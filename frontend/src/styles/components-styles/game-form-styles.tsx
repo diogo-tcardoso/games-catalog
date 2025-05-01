@@ -53,9 +53,30 @@ export const DataInput = styled.input`
     border: 2px solid #004f8d;
     border-radius: 7px;
     font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+`
+
+export const CalendarInput = styled.input`
+background: #ffffff;
+    color: #000000;
+    border: 2px solid #004f8d;
+    border-radius: 7px;
+    font-family: 'Roboto', sans-serif;
+    padding: 0.1rem;
+    backgroun-image: none;
+    font-size: 1rem;
+    cursor: pointer;
 `
 
 export const SystemSelect = styled.select`
+    background: #ffffff;
+    color: #000000;
+    border: 2px solid #004f8d;
+    border-radius: 7px;
+    font-family: 'Roboto', sans-serif;
+`
+
+export const GenreSelect = styled.select`
     background: #ffffff;
     color: #000000;
     border: 2px solid #004f8d;

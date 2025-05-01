@@ -11,7 +11,7 @@ datasource db {
 model Principal {
     id          Int      @id @default(autoincrement())
     nome        String
-    genero      String
+    genre       Genre   @relation(fields: [genreId], references: [id])
     tipo        String
     iniciado    DateTime
     finalizado  DateTime
@@ -21,6 +21,7 @@ model Principal {
     zeramento   String
     systemId    Int
     system      System   @relation(fields: [systemId], references: [id])
+    genreId     Int
 
     @@map("principal")
 }
@@ -32,4 +33,13 @@ model System {
     games   Principal[] // Relacionamento com os jogos (Principal)
 
     @@map("systems")
+}
+
+model Genre {
+    id      Int         @id @default(autoincrement())
+    name    String
+    color   String
+    games   Principal[] // Relacionamento com os jogos (Principal)
+
+    @@map("genre")
 }

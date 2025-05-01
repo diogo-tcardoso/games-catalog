@@ -19,26 +19,26 @@ router.get("/principal-table", async (req, res) => {
 });
 
 router.post("/principal-table", async (req, res) => {
-    const { nome, genero, tipo, iniciado, finalizado, tempo, nota, dificuldade, zeramento, systemId } = req.body;
+    const { nome, genreId, tipo, iniciado, finalizado, tempo, nota, dificuldade, zeramento, systemId } = req.body;
 
-    if (!systemId) {
-        res.status(400).json({ message: "Você deve fornecer um ID de sistema válido." });
+    if (systemId <= 0 || genreId <= 0 || !nome || !tipo || !iniciado || !finalizado || !tempo || nota === undefined || !dificuldade || !zeramento) {
+        res.status(400).json({ message: "Todos os campos são obrigatórios" });
     }
 
     try {
-        const existingSysstem = await prisma.system.findUnique({
-            where: {
-                id: systemId,
-            },
-        });
-        if (!existingSysstem) {
+        const existingSystem = await prisma.system.findUnique({ where: { id: systemId } });
+        if (!existingSystem) {
             res.status(404).json({ message: "Sistema não encontrado." });
+        }
+
+        const existingGenre = await prisma.genre.findUnique({ where: { id: genreId } });
+        if (!existingGenre) {
+            res.status(404).json({ message: "Gênero não encontrado." });
         }
 
         const newPrincipal = await prisma.principal.create({
             data: {
                 nome,
-                genero,
                 tipo,
                 iniciado: new Date(iniciado),
                 finalizado: new Date(finalizado),
@@ -46,18 +46,18 @@ router.post("/principal-table", async (req, res) => {
                 nota,
                 dificuldade,
                 zeramento,
-                system: {
-                    connect: { id: req.body.systemId } // Ensure `systemId` is provided in the request body
-                },
+                genre: { connect: { id: genreId } },
+                system: { connect: { id: systemId } },
             },
         });
+
         res.status(201).json(newPrincipal);
     } catch (error) {
-        console.log("Erro causado aqui: ")
         console.error("Error creating principal:", error);
-        res.status(500).json({ message: "Internal server error" });
+        res.status(500).json({ message: "Erro interno ao criar o jogo." });
     }
-})
+});
+
 
 router.delete("/principal-table/:id", async (req, res) => {
     const { id } = req.params;

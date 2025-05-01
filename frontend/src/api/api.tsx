@@ -4,7 +4,7 @@ const BASE_URL = "http://localhost:3000/api";
 export interface Game {
     id?: number;
     nome: string;
-    genero: string;
+    genreId: number;
     tipo: string;
     iniciado: Date;
     finalizado: Date;
@@ -17,6 +17,13 @@ export interface Game {
 
 //! Define System interface
 export interface System {
+    id: number;
+    name: string;
+    color: string;
+}
+
+//! Define Genre interface
+export interface Genre {
     id: number;
     name: string;
     color: string;
@@ -115,3 +122,53 @@ export async function deleteGame(id: number) {
         throw new Error("Failed to delete game");
     }
 }
+
+//! Function to fetch all genres
+export const getGenres = async () => {
+    try {
+        const response = await fetch(`${BASE_URL}/genres`);
+        if (!response.ok) {
+            throw new Error("Failed to fetch genres");
+        }
+        return await response.json();
+    } catch (error) {
+        console.error("Error fetching genres:", error);
+        throw error;
+    }
+};
+
+//! Function to create a new genre
+export type NewGenre = Omit<Genre, 'id'>;
+export const addGenres = async (genreData: NewGenre): Promise<Genre> => {
+    try {
+        const response = await fetch(`${BASE_URL}/genres`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(genreData),
+        });
+        if (!response.ok) {
+            throw new Error("Failed to create new genre");
+        }
+        return await response.json();
+    } catch (error) {
+        console.error("Error creating new genre:", error);
+        throw error;
+    }
+};
+
+//! Function to delete a genre
+export const deleteGenres = async (id: number) => {
+    try {
+        const response = await fetch(`${BASE_URL}/genres/${id}`, {
+            method: "DELETE",
+        });
+        if (!response.ok) {
+            throw new Error("Failed to delete system");
+        }
+    } catch (error) {
+        console.error("Error deleting system:", error);
+        throw error;
+    }
+};

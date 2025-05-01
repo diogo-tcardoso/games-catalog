@@ -1,6 +1,7 @@
 import Menu from "../../components/menu";
 import Header from "../home/header";
 import { Section, Aside, Table } from "../../styles/home-styles/home-styles";
+import GenrePage from "./genres-page";
 
 export default function Genres() {
     return (
@@ -13,7 +14,7 @@ export default function Genres() {
                     </Aside>
                     <Table>
                         <h1>Gêneros</h1>
-                        <p>Essa página ainda não está implementada.</p>
+                        <GenrePage />
                     </Table>
                 </Section>
             </main>
