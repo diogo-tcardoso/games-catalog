@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { Game, addNewGame } from "../api/api";
-import { Form, FormGroup, Label, Button, DataInput } from "../styles/components-styles/game-form-styles";
+import { useEffect, useState } from "react";
+import { Game, addNewGame, getSystems } from "../../api/api";
+import { Form, FormGroup, Label, Button, DataInput, SystemSelect } from "../../styles/components-styles/game-form-styles";
+import { System } from "../../api/api";
 
 const initialState: Game = {
     nome: "",
-    console: "",
     genero: "",
     tipo: "",
     iniciado: new Date(),
@@ -13,10 +13,28 @@ const initialState: Game = {
     nota: 0,
     dificuldade: "",
     zeramento: "",
+    systemId: 0,
 }
 
 export default function GameForm({onCreate}: {onCreate: () => void}) {
     const [game, setGame] = useState<Game>(initialState);
+    const [systems, setSystems] = useState<System[]>([]);
+    const [loadingSystems, setLoadingSystems] = useState(true);
+
+    useEffect(() => {
+        const fetchSystems = async () => {
+            try {
+                const systemsData = await getSystems();
+                setSystems(systemsData);
+            } catch (error) {
+                console.error("Error fetching systems:", error);
+            } finally {
+                setLoadingSystems(false);
+            }
+        };
+
+        fetchSystems();
+    })
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -26,6 +44,8 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
             updatedValue = Number(value);
         } else if (name === "iniciado" || name === "finalizado") {
             updatedValue = new Date(value);
+        } else if (name === "systemId"){
+            updatedValue = Number(value);
         }
 
         setGame((prevGame) => ({
@@ -33,16 +53,24 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
             [name]: updatedValue
         }))
     };
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        if (systems.length === 0) {
+            alert("Cadastre um sistema antes de cadastrar jogos.");
+            return;
+        }
+
         try {
             await addNewGame(game);
-            setGame(initialState); // Reset the form after submission
-            onCreate() // Call the onCreate function to refresh the data
+            setGame(initialState);
+            onCreate();
         } catch (error) {
-            console.error("Error adding new game:", error);
+            console.error("Erro ao adicionar novo jogo:", error);
+            alert("Erro ao salvar o jogo. Verifique os dados e tente novamente.");
         }
-    }
+    };
 
     return (
         <Form onSubmit={handleSubmit}>
@@ -60,7 +88,20 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
                 <FormGroup>
                     <Label>
                         Console:
-                        <DataInput type="text" name="console" value={game.console} onChange={handleChange} style={{marginLeft:"10px"}}/>
+                        <SystemSelect name="systemId" value={game.systemId} onChange={handleChange} style={{marginLeft:"10px"}} disabled={loadingSystems}>
+                            {loadingSystems ? (
+                                <option>Carregando sistemas...</option>
+                            ) : (
+                                <>
+                                    <option value={0}>Selecione um sistema</option>
+                                    {systems.map((system) => (
+                                        <option key={system.id} value={system.id}>
+                                            {system.name}
+                                        </option>
+                                    ))}
+                                </>
+                            )}
+                        </SystemSelect>
                     </Label>
                 </FormGroup>
                 <FormGroup>

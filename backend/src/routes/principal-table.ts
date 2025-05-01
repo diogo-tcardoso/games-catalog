@@ -7,9 +7,9 @@ const router = Router();
 router.get("/principal-table", async (req, res) => {
     try {
         const principalTable = await prisma.principal.findMany({
-            orderBy: {
-                console: "asc"
-            }
+            include: {
+                system: true
+            },
         });
         res.json(principalTable);
     } catch (error) {
@@ -19,13 +19,25 @@ router.get("/principal-table", async (req, res) => {
 });
 
 router.post("/principal-table", async (req, res) => {
-    const { nome, console, genero, tipo, iniciado, finalizado, tempo, nota, dificuldade, zeramento } = req.body;
+    const { nome, genero, tipo, iniciado, finalizado, tempo, nota, dificuldade, zeramento, systemId } = req.body;
+
+    if (!systemId) {
+        res.status(400).json({ message: "Você deve fornecer um ID de sistema válido." });
+    }
 
     try {
+        const existingSysstem = await prisma.system.findUnique({
+            where: {
+                id: systemId,
+            },
+        });
+        if (!existingSysstem) {
+            res.status(404).json({ message: "Sistema não encontrado." });
+        }
+
         const newPrincipal = await prisma.principal.create({
             data: {
                 nome,
-                console,
                 genero,
                 tipo,
                 iniciado: new Date(iniciado),
@@ -34,10 +46,14 @@ router.post("/principal-table", async (req, res) => {
                 nota,
                 dificuldade,
                 zeramento,
+                system: {
+                    connect: { id: req.body.systemId } // Ensure `systemId` is provided in the request body
+                },
             },
         });
         res.status(201).json(newPrincipal);
     } catch (error) {
+        console.log("Erro causado aqui: ")
         console.error("Error creating principal:", error);
         res.status(500).json({ message: "Internal server error" });
     }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getPrincipalTable, Game } from "../../api/api";
-import GameList from "../../components/game-list";
-import GameForm from "../../components/game-form";
+import GameList from "../../components/games/game-list";
+import GameForm from "../../components/games/game-form";
 import Modal from "../../components/modal";
 
 export default function PrincipalTableData() {

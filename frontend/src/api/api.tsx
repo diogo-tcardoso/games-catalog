@@ -4,7 +4,6 @@ const BASE_URL = "http://localhost:3000/api";
 export interface Game {
     id?: number;
     nome: string;
-    console: string;
     genero: string;
     tipo: string;
     iniciado: Date;
@@ -53,7 +52,7 @@ export const getSystems = async () => {
 
 //! Function to create a new system
 export type NewSystem = Omit<System, 'id'>;
-export const addSystem = async (systemData: NewSystem): Promise<System[]> => {
+export const addSystem = async (systemData: NewSystem): Promise<System> => {
     try {
         const response = await fetch(`${BASE_URL}/systems`, {
             method: "POST",

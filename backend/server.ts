@@ -1,5 +1,6 @@
 import express from 'express';
 import principalTableRouter from './src/routes/principal-table';
+import systemsRouter from './src/routes/systems-table';
 
 const cors = require('cors');
 const app = express();
@@ -9,6 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api', principalTableRouter);
+app.use('/api', systemsRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port http://localhost:${PORT}`);

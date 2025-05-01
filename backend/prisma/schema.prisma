@@ -19,7 +19,6 @@ model Principal {
     nota        Int
     dificuldade String
     zeramento   String
-
     systemId    Int
     system      System   @relation(fields: [systemId], references: [id])
 

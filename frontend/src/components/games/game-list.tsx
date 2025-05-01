@@ -1,5 +1,5 @@
-import { deleteGame, Game } from "../api/api";
-import { Columns, DeleteButton, GamesData, TableHeader, AddButton } from "../styles/components-styles/game-list-style";
+import { deleteGame, Game } from "../../api/api";
+import { Columns, DeleteButton, GamesData, TableHeader, AddButton } from "../../styles/components-styles/game-list-style";
 import { IoTrashOutline,} from "react-icons/io5";
 import { IconContext } from "react-icons";
 
@@ -56,7 +56,7 @@ export default function GameList({
                     {sortedGames.map((game) => (
                         <tr key={game.id}>
                             <GamesData>{game.nome}</GamesData>
-                            <GamesData>{game.console}</GamesData>
+                            <GamesData>{game.systemId}</GamesData>
                             <GamesData>{game.genero}</GamesData>
                             <GamesData>{game.tipo}</GamesData>
                             <GamesData>{new Date(game.iniciado).toLocaleDateString()}</GamesData>
