@@ -45,9 +45,12 @@ router.delete("/systems/:id", async (req, res) => {
             where: { id: Number(id) }
         });
         res.status(204).end();
-    } catch (error) {
-        console.error("Erro ao deletar sistema:", error);
-        res.status(500).json({ message: "Erro interno ao deletar sistema" });
+    } catch (error: any) {
+        if (error.code === 'P2003') {
+            res.status(400).json({
+                message: "Este sistema está vinculado a um ou mais jogos e não pode ser excluído."
+            });
+        }
     }
 });
 

@@ -45,9 +45,12 @@ router.delete("/types/:id", async (req, res) => {
             where: { id: Number(id) }
         });
         res.status(204).end();
-    } catch (error) {
-        console.error("Erro ao deletar tipo:", error);
-        res.status(500).json({ message: "Erro interno ao deletar tipo" });
+    } catch (error: any) {
+        if (error.code === 'P2003') {
+            res.status(400).json({
+                message: "Este tipo está vinculado a um ou mais jogos e não pode ser excluído."
+            });
+        }
     }
 });
 

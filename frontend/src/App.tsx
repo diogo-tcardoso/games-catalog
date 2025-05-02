@@ -1,7 +1,7 @@
 import Home from './pages/home/home'
 import Systems from './pages/systems/systems'
 import Genres from './pages/genres/genres'
-import Types from './pages/game-types/game-types'
+import Types from './pages/game-types'
 import Series from './pages/series/series'
 import Stats from './pages/stats/stats'
 import { GlobalStyles } from './styles/global-styles/global-styles'

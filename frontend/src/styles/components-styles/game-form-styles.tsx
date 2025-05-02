@@ -83,3 +83,11 @@ export const GenreSelect = styled.select`
     border-radius: 7px;
     font-family: 'Roboto', sans-serif;
 `
+
+export const TypeSelect = styled.select`
+    background: #ffffff;
+    color: #000000;
+    border: 2px solid #004f8d;
+    border-radius: 7px;
+    font-family: 'Roboto', sans-serif;
+`

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { Game, Genre, getGenres, addNewGame, getSystems, System } from "../../api/api";
-import { Form, FormGroup, Label, Button, DataInput, SystemSelect, CalendarInput, GenreSelect } from "../../styles/components-styles/game-form-styles";
+import { Game, Genre, getGenres, addNewGame, getSystems, System, getTypes, Type } from "../../api/api";
+import { Form, FormGroup, Label, Button, DataInput, SystemSelect, CalendarInput, GenreSelect, TypeSelect } from "../../styles/components-styles/game-form-styles";
 import DatePicker from "react-datepicker";
 
 const initialState: Game = {
     nome: "",
     genreId: 0,
-    tipo: "",
+    typeId: 0,
     iniciado: new Date(),
     finalizado: new Date(),
     tempo: "",
@@ -20,8 +20,10 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
     const [game, setGame] = useState<Game>(initialState);
     const [systems, setSystems] = useState<System[]>([]);
     const [genres, setGenres] = useState<Genre[]>([]);
+    const [types, setTypes] = useState<Type[]>([]);
     const [loadingSystems, setLoadingSystems] = useState(true);
     const [loadingGenres, setLoadingGenres] = useState(true);
+    const [loadingTypes, setLoadingTypes] = useState(true);
     const [iniciado, setIniciado] = useState<Date | null>(null);
     const [finalizado, setFinalizado] = useState<Date | null>(null);
 
@@ -56,6 +58,20 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
         fetchGenres();
     }, []);
 
+    useEffect(() => {
+        const fetchTypes = async () => {
+            try {
+                const response = await getTypes();
+                setTypes(response);
+            } catch (error) {
+                console.error("Error fetching types:", error);
+            } finally {
+                setLoadingTypes(false);
+            }
+        }
+        fetchTypes();
+    }, [])
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         let updatedValue: string | number | Date = value;
@@ -64,7 +80,7 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
             updatedValue = Number(value);
         } else if (name === "iniciado" || name === "finalizado") {
             updatedValue = new Date(value);
-        } else if (name === "systemId" || name === "genreId") {
+        } else if (name === "systemId" || name === "genreId" || name === "typeId") {
             updatedValue = Number(value);
         }        
 
@@ -84,6 +100,11 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
     
         if (genres.length === 0) {
             alert("Cadastre um gênero antes de cadastrar jogos.");
+            return;
+        }
+
+        if (types.length === 0) {
+            alert("Cadastre um tipo antes de cadastrar jogos.");
             return;
         }
     
@@ -166,7 +187,20 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
                 <FormGroup>
                     <Label>
                         Tipo:
-                        <DataInput type="text" name="tipo" value={game.tipo} onChange={handleChange} style={{marginLeft:"10px"}}/>
+                        <TypeSelect name="typeId" value={game.typeId} onChange={handleChange} style={{marginLeft:"10px"}}>
+                            {loadingTypes ? (
+                                <option>Carregando tipos...</option>
+                            ) : (
+                                <>
+                                    <option value={0}>Selecione um tipo</option>
+                                    {types.map((type) => (
+                                        <option key={type.id} value={type.id}>
+                                            {type.name}
+                                        </option>
+                                    ))}
+                                </>
+                            )}
+                        </ TypeSelect>
                     </Label>
                 </FormGroup>
                 <FormGroup>

@@ -90,7 +90,7 @@ export default function GameList({
                                 <GamesData style={{ backgroundColor: genreColor, color: "#fff" }}>
                                     {getGenreName(game.genreId)}
                                 </GamesData>
-                                <GamesData>{game.tipo}</GamesData>
+                                <GamesData>{game.typeId}</GamesData>
                                 <GamesData>{new Date(game.iniciado).toLocaleDateString()}</GamesData>
                                 <GamesData>{new Date(game.finalizado).toLocaleDateString()}</GamesData>
                                 <GamesData>{game.tempo}</GamesData>

@@ -5,14 +5,14 @@ export interface Game {
     id?: number;
     nome: string;
     genreId: number;
-    tipo: string;
+    typeId: number;
     iniciado: Date;
     finalizado: Date;
     tempo: string;
     nota: number;
     dificuldade: string;
     zeramento: string;
-    systemId: number; // Relacionamento com o sistema
+    systemId: number;
 }
 
 //! Define System interface

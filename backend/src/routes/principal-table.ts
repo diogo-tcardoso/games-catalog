@@ -10,6 +10,7 @@ router.get("/principal-table", async (req, res) => {
             include: {
                 system: true,
                 genre: true,
+                type: true,
             },
         });
         res.json(principalTable);
@@ -37,6 +38,11 @@ router.post("/principal-table", async (req, res) => {
             res.status(404).json({ message: "Gênero não encontrado." });
         }
 
+        const existingType = await prisma.type.findUnique({ where: { id: typeId } });
+        if (!existingType) {
+            res.status(404).json({ message: "Tipo não encontrado." });
+        }
+
         const newPrincipal = await prisma.principal.create({
             data: {
                 nome,
@@ -53,8 +59,15 @@ router.post("/principal-table", async (req, res) => {
         });
 
         res.status(201).json(newPrincipal);
-    } catch (error) {
-        console.error("Error creating principal:", error);
+    } catch (error: any) {
+        console.error("🔴 ERRO AO CRIAR JOGO:");
+        console.error("Mensagem:", error.message);
+        console.error("Nome do erro:", error.name);
+        if (error.meta) console.error("Meta:", error.meta);
+        if (error.code) console.error("Código do erro:", error.code);
+        if (error.stack) console.error("Stack:", error.stack);
+        console.error("Dados recebidos:", req.body);
+            
         res.status(500).json({ message: "Erro interno ao criar o jogo." });
     }
 });
