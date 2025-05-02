@@ -2,6 +2,7 @@ import { System, Game } from "../../api/api";
 import { IoTrashOutline } from "react-icons/io5";
 import { IconContext } from "react-icons";
 import { DeleteButton } from "../../styles/components-styles/game-list-style";
+import { Columns, GamesData } from "../../styles/components-styles/game-list-style";
 
 type Props = {
     systems: System[];
@@ -32,34 +33,34 @@ export default function SystemsData({ systems, games, onDelete }: Props) {
     };
 
     return (
-        <table border={1} cellPadding={8}>
+        <table>
             <thead>
-                <tr style={{ backgroundColor: '#005dab', color: '#ffffff', fontWeight: 'bold' }}>
-                    <th style={{ width: '10rem' }}>Nome</th>
-                    <th>Jogos Zerados</th>
-                    <th>Tempo Total</th>
-                    <th>Ações</th>
+                <tr>
+                    <Columns style={{ width: '10rem' }}>Nome</Columns>
+                    <Columns>Jogos Zerados</Columns>
+                    <Columns>Tempo Total</Columns>
+                    <Columns>Ações</Columns>
                 </tr>
             </thead>
             <tbody>
                 {systems.map((system) => (
                     <tr key={system.id}>
-                        <td style={{ backgroundColor: system.color, color: '#fff', textAlign: 'center' }}>
+                        <GamesData style={{ backgroundColor: system.color, color: '#fff', textAlign: 'center' }}>
                             {system.name}
-                        </td>
-                        <td style={{ backgroundColor: system.color, textAlign: 'center', color: '#fff' }}>
+                        </GamesData>
+                        <GamesData style={{ backgroundColor: system.color, textAlign: 'center', color: '#fff' }}>
                             {countGames(system.id)}
-                        </td>
-                        <td style={{ backgroundColor: system.color, textAlign: 'center', color: '#fff' }}>
+                        </GamesData>
+                        <GamesData style={{ backgroundColor: system.color, textAlign: 'center', color: '#fff' }}>
                             {formatTime(sumTime(system.id))}
-                        </td>
-                        <td style={{ backgroundColor: system.color, textAlign: 'center' }}>
+                        </GamesData>
+                        <GamesData style={{ backgroundColor: system.color, textAlign: 'center' }}>
                             <DeleteButton onClick={() => onDelete(system.id)} style={{ marginRight: "8px" }}>
                                 <IconContext.Provider value={{ size: "20px", style: { marginBottom: "-2px" } }}>
                                     <IoTrashOutline title="delete" />
                                 </IconContext.Provider>
                             </DeleteButton>
-                        </td>
+                        </GamesData>
                     </tr>
                 ))}
             </tbody>

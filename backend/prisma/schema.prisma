@@ -1,5 +1,5 @@
 generator client {
-    provider = "prisma-client-js"
+    provider      = "prisma-client-js"
     binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
@@ -11,8 +11,7 @@ datasource db {
 model Principal {
     id          Int      @id @default(autoincrement())
     nome        String
-    genre       Genre   @relation(fields: [genreId], references: [id])
-    tipo        String
+    genre       Genre    @relation(fields: [genreId], references: [id])
     iniciado    DateTime
     finalizado  DateTime
     tempo       String
@@ -22,24 +21,35 @@ model Principal {
     systemId    Int
     system      System   @relation(fields: [systemId], references: [id])
     genreId     Int
+    type        Type    @relation(fields: [typeId], references: [id])
+    typeId      Int
 
     @@map("principal")
 }
 
 model System {
-    id      Int         @id @default(autoincrement())
-    name    String
-    color   String
-    games   Principal[] // Relacionamento com os jogos (Principal)
+    id    Int         @id @default(autoincrement())
+    name  String
+    color String
+    games Principal[] // Relacionamento com os jogos (Principal)
 
     @@map("systems")
 }
 
 model Genre {
-    id      Int         @id @default(autoincrement())
-    name    String
-    color   String
-    games   Principal[] // Relacionamento com os jogos (Principal)
+    id    Int         @id @default(autoincrement())
+    name  String
+    color String
+    games Principal[] // Relacionamento com os jogos (Principal)
 
     @@map("genre")
+}
+
+model Type {
+    id    Int         @id @default(autoincrement())
+    name  String
+    color String
+    games Principal[] // Relacionamento com os jogos (Principal)
+
+    @@map("type")
 }

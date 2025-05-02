@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Columns = styled.th`
     text-align: center;
-    padding: 3px;
+    padding: 9px;
     font-weight: bold;
     font-size: 17px;
     color: #ffffff;
@@ -24,10 +24,10 @@ export const TableHeader = styled.div `
 
 export const GamesData = styled.td`
     text-align: center;
-    border: 2px solid #eff8ff;
     background: #eff8ff;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 10px;
+    font-size: 17px;
+    padding-right: 10px;
     color: #021527;
 `
 

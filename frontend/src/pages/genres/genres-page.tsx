@@ -32,7 +32,7 @@ export default function GenrePage() {
     return (
         <div style={{ padding: '1rem' }}>
             <h2 style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '2rem' }}>
-                Estatísticas por Sistemas
+                Estatísticas de Gêneros (Gênero / Jogos Zerados / Tempo)
             </h2>
             <GenresList genres={genre} onAdd={handleAdd} />
             <GenreData genres={genre} games={games} onDelete={handleDelete} />

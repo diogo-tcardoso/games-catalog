@@ -8,7 +8,8 @@ router.get("/principal-table", async (req, res) => {
     try {
         const principalTable = await prisma.principal.findMany({
             include: {
-                system: true
+                system: true,
+                genre: true,
             },
         });
         res.json(principalTable);
@@ -19,9 +20,9 @@ router.get("/principal-table", async (req, res) => {
 });
 
 router.post("/principal-table", async (req, res) => {
-    const { nome, genreId, tipo, iniciado, finalizado, tempo, nota, dificuldade, zeramento, systemId } = req.body;
+    const { nome, genreId, typeId, iniciado, finalizado, tempo, nota, dificuldade, zeramento, systemId } = req.body;
 
-    if (systemId <= 0 || genreId <= 0 || !nome || !tipo || !iniciado || !finalizado || !tempo || nota === undefined || !dificuldade || !zeramento) {
+    if (systemId <= 0 || genreId <= 0 || !nome || typeId <= 0 || !iniciado || !finalizado || !tempo || nota === undefined || !dificuldade || !zeramento) {
         res.status(400).json({ message: "Todos os campos são obrigatórios" });
     }
 
@@ -39,7 +40,7 @@ router.post("/principal-table", async (req, res) => {
         const newPrincipal = await prisma.principal.create({
             data: {
                 nome,
-                tipo,
+                type: { connect: { id: typeId } },
                 iniciado: new Date(iniciado),
                 finalizado: new Date(finalizado),
                 tempo,

@@ -1,4 +1,4 @@
-import { deleteGame, Game, System } from "../../api/api";
+import { deleteGame, Game, System, Genre } from "../../api/api";
 import { Columns, DeleteButton, GamesData, TableHeader, AddButton } from "../../styles/components-styles/game-list-style";
 import { IoTrashOutline } from "react-icons/io5";
 import { IconContext } from "react-icons";
@@ -6,11 +6,13 @@ import { IconContext } from "react-icons";
 export default function GameList({
     games,
     systems,
+    genres,
     onAddClick,
     onDeleteComplete
 }: {
     games: Game[];
     systems: System[];
+    genres: Genre[];
     onAddClick: () => void;
     onDeleteComplete: () => void;
 }) {
@@ -25,6 +27,16 @@ export default function GameList({
     const getSystemColor = (id: number) => {
         const system = systems.find(s => s.id === id);
         return system ? system.color : '#ffffff';
+    };
+
+    const getGenreName = (id: number) => {
+        const genre = genres.find(g => g.id === id);
+        return genre ? genre.name : 'Desconhecido';
+    };
+
+    const getGenreColor = (id: number) => {
+        const genre = genres.find(g => g.id === id);
+        return genre ? genre.color : '#cccccc';
     };
 
     const handleDelete = async (id: number) => {
@@ -62,18 +74,22 @@ export default function GameList({
                         <Columns>Nota</Columns>
                         <Columns>Dificuldade</Columns>
                         <Columns>Zeramento</Columns>
+                        <Columns>Ações</Columns>
                     </tr>
                 </thead>
                 <tbody>
                     {sortedGames.map((game) => {
-                        const color = getSystemColor(game.systemId);
+                        const systemColor = getSystemColor(game.systemId);
+                        const genreColor = getGenreColor(game.genreId);
                         return (
                             <tr key={game.id}>
                                 <GamesData>{game.nome}</GamesData>
-                                <GamesData style={{ backgroundColor: color, color: "#fff" }}>
+                                <GamesData style={{ backgroundColor: systemColor, color: "#fff" }}>
                                     {getSystemName(game.systemId)}
                                 </GamesData>
-                                <GamesData>{game.genero}</GamesData>
+                                <GamesData style={{ backgroundColor: genreColor, color: "#fff" }}>
+                                    {getGenreName(game.genreId)}
+                                </GamesData>
                                 <GamesData>{game.tipo}</GamesData>
                                 <GamesData>{new Date(game.iniciado).toLocaleDateString()}</GamesData>
                                 <GamesData>{new Date(game.finalizado).toLocaleDateString()}</GamesData>
@@ -81,13 +97,13 @@ export default function GameList({
                                 <GamesData>{game.nota}</GamesData>
                                 <GamesData>{game.dificuldade}</GamesData>
                                 <GamesData>{game.zeramento}</GamesData>
-                                <td>
-                                    <DeleteButton onClick={() => handleDelete(game.id as number)} title="Excluir Jogo">
+                                <GamesData>
+                                    <DeleteButton onClick={() => handleDelete(game.id as number)} title="Excluir Jogo" style={{ marginRight: "8px" }}>
                                         <IconContext.Provider value={{ size: "20px", style: { marginBottom: "-2px" } }}>
                                             <IoTrashOutline title="delete" />
                                         </IconContext.Provider>
                                     </DeleteButton>
-                                </td>
+                                </GamesData>
                             </tr>
                         );
                     })}

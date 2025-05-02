@@ -33,7 +33,7 @@ export default function SystemsPage() {
     return (
         <div style={{ padding: '1rem' }}>
             <h2 style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '2rem' }}>
-                Estatísticas por Sistemas
+                Jogos Zerados e Tempo de Jogo por Sistema
             </h2>
             <SystemsList systems={systems} onAdd={handleAdd} />
             <SystemsData systems={systems} games={games} onDelete={handleDelete} />

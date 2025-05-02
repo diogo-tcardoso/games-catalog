@@ -13,7 +13,6 @@ export default function Genres() {
                         <Menu />
                     </Aside>
                     <Table>
-                        <h1>Gêneros</h1>
                         <GenrePage />
                     </Table>
                 </Section>

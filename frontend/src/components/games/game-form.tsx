@@ -64,9 +64,9 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
             updatedValue = Number(value);
         } else if (name === "iniciado" || name === "finalizado") {
             updatedValue = new Date(value);
-        } else if (name === "systemId"){
+        } else if (name === "systemId" || name === "genreId") {
             updatedValue = Number(value);
-        }
+        }        
 
         setGame((prevGame) => ({
             ...prevGame,
@@ -87,24 +87,30 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
             return;
         }
     
-        try {
-            const gameToSubmit = {
-                ...game,
-                iniciado: iniciado || new Date(),
-                finalizado: finalizado || new Date(),
-            };
+        if (!iniciado || !finalizado) {
+            alert("Preencha as datas de início e finalização.");
+            return;
+        }
     
+        const gameToSubmit: Game = {
+            ...game,
+            iniciado,
+            finalizado,
+        };
+    
+        try {
             await addNewGame(gameToSubmit);
             setGame(initialState);
             setIniciado(null);
             setFinalizado(null);
             onCreate();
-        } catch (error) {
-            console.error("Erro ao adicionar novo jogo:", error);
-            alert("Erro ao salvar o jogo. Verifique os dados e tente novamente.");
+        } catch (error: unknown) {
+            const backendMessage = error instanceof Error ? error.message : "Erro desconhecido";
+            console.error("Erro ao adicionar novo jogo:", backendMessage);
+            alert(backendMessage);
         }
+        
     };
-    
 
     return (
         <Form onSubmit={handleSubmit}>
