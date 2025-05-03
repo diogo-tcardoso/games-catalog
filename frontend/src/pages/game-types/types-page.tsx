@@ -32,7 +32,7 @@ export default function TypePage() {
     return (
         <div style={{ padding: '1rem' }}>
             <h2 style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '2rem' }}>
-                Estatísticas de Gêneros (Gênero / Jogos Zerados / Tempo)
+                Estatísticas de Tipos (Tipos / Jogos Zerados / Tempo)
             </h2>
             <TypesList types={type} onAdd={handleAdd} />
             <TypeData types={type} games={games} onDelete={handleDelete} />

@@ -13,7 +13,6 @@ export default function Types(){
                         <Menu />
                     </Aside>
                     <Table>
-                        <h1>Tipos de Jogos</h1>
                         <TypePage />
                     </Table>
                 </Section>
