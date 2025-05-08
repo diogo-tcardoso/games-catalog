@@ -24,7 +24,7 @@ export const ModalStyle = styled.div`
 
 export const CloseButton = styled.button`
     position: absolute;
-    top: 290px;
+    top: 255px;
     right: 630px;
     background: linear-gradient(180deg, #0095f7 0%, #0076d3 100%);
     border: 1px solid #005dab;

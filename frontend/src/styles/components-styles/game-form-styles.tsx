@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+
 export const Form = styled.form`
     display: flex;
     justify-content: center;
@@ -52,20 +53,9 @@ export const DataInput = styled.input`
     color: #000000;
     border: 2px solid #004f8d;
     border-radius: 7px;
+    height: 35px;
     font-family: 'Roboto', sans-serif;
-    font-size: 1rem;
-`
-
-export const CalendarInput = styled.input`
-background: #ffffff;
-    color: #000000;
-    border: 2px solid #004f8d;
-    border-radius: 7px;
-    font-family: 'Roboto', sans-serif;
-    padding: 0.1rem;
-    backgroun-image: none;
-    font-size: 1rem;
-    cursor: pointer;
+    font-size: 16px;
 `
 
 export const SystemSelect = styled.select`
@@ -73,7 +63,9 @@ export const SystemSelect = styled.select`
     color: #000000;
     border: 2px solid #004f8d;
     border-radius: 7px;
+    height: 35px;
     font-family: 'Roboto', sans-serif;
+    font-size: 16px;
 `
 
 export const GenreSelect = styled.select`
@@ -81,13 +73,17 @@ export const GenreSelect = styled.select`
     color: #000000;
     border: 2px solid #004f8d;
     border-radius: 7px;
+    height: 35px;
     font-family: 'Roboto', sans-serif;
+    font-size: 16px;
 `
 
 export const TypeSelect = styled.select`
     background: #ffffff;
+    height: 35px;
     color: #000000;
     border: 2px solid #004f8d;
     border-radius: 7px;
     font-family: 'Roboto', sans-serif;
+    font-size: 16px;
 `

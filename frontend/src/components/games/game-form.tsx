@@ -3,8 +3,9 @@ import { getTypes, Type } from "../../api/type-api";
 import { getGenres, Genre } from "../../api/genre-api";
 import { getSystems, System } from "../../api/system-api";
 import { addNewGame, Game } from "../../api/game-api";
-import { Form, FormGroup, Label, Button, DataInput, SystemSelect, CalendarInput, GenreSelect, TypeSelect } from "../../styles/components-styles/game-form-styles";
-import DatePicker from "react-datepicker";
+import { Form, FormGroup, Label, Button, DataInput, SystemSelect, GenreSelect, TypeSelect } from "../../styles/components-styles/game-form-styles";
+import { Dayjs } from "dayjs";
+import CalendarInput from './date-button'
 
 const initialState: Game = {
     nome: "",
@@ -27,8 +28,8 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
     const [loadingSystems, setLoadingSystems] = useState(true);
     const [loadingGenres, setLoadingGenres] = useState(true);
     const [loadingTypes, setLoadingTypes] = useState(true);
-    const [iniciado, setIniciado] = useState<Date | null>(null);
-    const [finalizado, setFinalizado] = useState<Date | null>(null);
+    const [iniciado, setIniciado] = useState<Dayjs | null>(null);
+    const [finalizado, setFinalizado] = useState<Dayjs | null>(null);
 
 
     useEffect(() => {
@@ -118,8 +119,8 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
     
         const gameToSubmit: Game = {
             ...game,
-            iniciado,
-            finalizado,
+            iniciado: iniciado?.toDate() || new Date(),
+            finalizado: finalizado?.toDate() || new Date(),
         };
     
         try {
@@ -209,13 +210,13 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
                 <FormGroup>
                     <Label>
                         Iniciado:&nbsp;
-                        <DatePicker selected={iniciado} onChange={(date) => setIniciado(date)} dateFormat="dd/MM/yyyy" customInput={<CalendarInput />} />
+                        <CalendarInput />
                     </Label>
                 </FormGroup>
                 <FormGroup>
                     <Label>
                         Finalizado:&nbsp;
-                        <DatePicker selected={finalizado} onChange={(date) => setFinalizado(date)} dateFormat="dd/MM/yyyy" customInput={<CalendarInput />} />
+                        <CalendarInput />
                     </Label>
                 </FormGroup>
                 <FormGroup>
