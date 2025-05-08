@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { SystemsInput, SystemColor } from '../../styles/systems-styles/systems-styles';
 import { AddButton } from '../../styles/components-styles/game-list-style';
-import { addType, Type } from '../../api/api';
+import { addType, Type } from '../../api/type-api';
 
 type Props = {
     onAdd: (NewType: Type) => void;

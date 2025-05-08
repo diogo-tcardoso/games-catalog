@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getTypes, Type } from "../../api/api";
+import { getTypes, Type } from "../../api/type-api";
 import { getGenres, Genre } from "../../api/genre-api";
 import { getSystems, System } from "../../api/system-api";
 import { addNewGame, Game } from "../../api/game-api";

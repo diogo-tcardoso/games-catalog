@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Type, getTypes, deleteType } from "../../api/api";
+import { Type, getTypes, deleteType } from "../../api/type-api";
 import { Game, getPrincipalTable } from "../../api/game-api";
 import TypeData from "./types-data";
 import TypesList from "../../components/types/types-list";

@@ -1,4 +1,4 @@
-import { Type } from "../../api/api";
+import { Type } from "../../api/type-api";
 import { Game } from "../../api/game-api";
 import { IoTrashOutline } from "react-icons/io5";
 import { IconContext } from "react-icons";

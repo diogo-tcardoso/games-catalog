@@ -1,4 +1,4 @@
-import { Type } from "../../api/api";
+import { Type } from "../../api/type-api";
 import { Genre } from "../../api/genre-api";
 import { System } from "../../api/system-api";
 import { deleteGame, Game } from "../../api/game-api";
