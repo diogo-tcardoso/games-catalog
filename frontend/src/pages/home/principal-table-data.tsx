@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Genre, getGenres } from "../../api/api";
+import { Genre, getGenres, Type, getTypes } from "../../api/api";
 import { getSystems, System } from "../../api/system-api";
 import { Game, getPrincipalTable } from "../../api/game-api";
 import GameList from "../../components/games/game-list";
@@ -11,6 +11,7 @@ export default function PrincipalTableData() {
     const [systems, setSystems] = useState<System[]>([]);
     const [genres, setGenres] = useState<Genre[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [ types, setTypes ] = useState<Type[]>([]);
     
     const fetchGames = async () => {
         const data = await getPrincipalTable();
@@ -27,15 +28,21 @@ export default function PrincipalTableData() {
         setGenres(data);
     }
 
+    const fetchTypes = async () => {
+        const data = await getTypes();
+        setTypes(data);
+    }
+
     useEffect(() => {
         fetchGames();
         fetchSystems();
         fetchGenres();
+        fetchTypes();
     }, []);
 
     return (
         <>
-            <GameList games={games} systems={systems} genres={genres} onAddClick={() => setIsModalOpen(true)} onDeleteComplete={fetchGames}/>
+            <GameList games={games} systems={systems} genres={genres} types={types} onAddClick={() => setIsModalOpen(true)} onDeleteComplete={fetchGames}/>
             {isModalOpen && (
                 <Modal onClose={() => setIsModalOpen(false)}>
                     <GameForm onCreate={() => {

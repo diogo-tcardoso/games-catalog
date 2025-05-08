@@ -1,4 +1,4 @@
-import { Genre } from "../../api/api";
+import { Genre, Type } from "../../api/api";
 import { System } from "../../api/system-api";
 import { deleteGame, Game } from "../../api/game-api";
 import { Columns, DeleteButton, GamesData, TableHeader, AddButton } from "../../styles/components-styles/game-list-style";
@@ -9,12 +9,14 @@ export default function GameList({
     games,
     systems,
     genres,
+    types,
     onAddClick,
     onDeleteComplete
 }: {
     games: Game[];
     systems: System[];
     genres: Genre[];
+    types: Type[];
     onAddClick: () => void;
     onDeleteComplete: () => void;
 }) {
@@ -39,6 +41,16 @@ export default function GameList({
     const getGenreColor = (id: number) => {
         const genre = genres.find(g => g.id === id);
         return genre ? genre.color : '#cccccc';
+    };
+
+    const getTypeName = (id: number) => {
+        const type = types.find(t => t.id === id);
+        return type ? type.name : 'Desconhecido';
+    };
+
+    const getTypeColor = (id: number) => {
+        const type = types.find(t => t.id === id);
+        return type ? type.color : '#cccccc';
     };
 
     const handleDelete = async (id: number) => {
@@ -92,7 +104,9 @@ export default function GameList({
                                 <GamesData style={{ backgroundColor: genreColor, color: "#fff" }}>
                                     {getGenreName(game.genreId)}
                                 </GamesData>
-                                <GamesData>{game.typeId}</GamesData>
+                                <GamesData style={{ backgroundColor: getTypeColor(game.typeId), color: "#fff" }}>
+                                    {getTypeName(game.typeId)}
+                                </GamesData>
                                 <GamesData>{new Date(game.iniciado).toLocaleDateString()}</GamesData>
                                 <GamesData>{new Date(game.finalizado).toLocaleDateString()}</GamesData>
                                 <GamesData>{game.tempo}</GamesData>
