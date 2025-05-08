@@ -1,4 +1,5 @@
-import { System, Genre } from "../../api/api";
+import { Genre } from "../../api/api";
+import { System } from "../../api/system-api";
 import { deleteGame, Game } from "../../api/game-api";
 import { Columns, DeleteButton, GamesData, TableHeader, AddButton } from "../../styles/components-styles/game-list-style";
 import { IoTrashOutline } from "react-icons/io5";

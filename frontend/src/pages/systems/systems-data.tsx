@@ -1,4 +1,5 @@
-import { System, Game } from "../../api/api";
+import { System } from "../../api/system-api";
+import { Game } from "../../api/game-api";
 import { IoTrashOutline } from "react-icons/io5";
 import { IconContext } from "react-icons";
 import { DeleteButton } from "../../styles/components-styles/game-list-style";
