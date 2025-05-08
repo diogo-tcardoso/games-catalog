@@ -1,4 +1,5 @@
-import { Genre, Type } from "../../api/api";
+import { Type } from "../../api/api";
+import { Genre } from "../../api/genre-api";
 import { System } from "../../api/system-api";
 import { deleteGame, Game } from "../../api/game-api";
 import { Columns, DeleteButton, GamesData, TableHeader, AddButton } from "../../styles/components-styles/game-list-style";

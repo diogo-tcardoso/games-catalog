@@ -1,4 +1,4 @@
-import { Genre } from "../../api/api";
+import { Genre } from "../../api/genre-api";
 import { Game } from "../../api/game-api";
 import { IoTrashOutline } from "react-icons/io5";
 import { IconContext } from "react-icons";

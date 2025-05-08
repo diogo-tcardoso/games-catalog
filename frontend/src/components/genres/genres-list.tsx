@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { SystemsInput, SystemColor } from '../../styles/systems-styles/systems-styles';
 import { AddButton } from '../../styles/components-styles/game-list-style';
-import { addGenres, Genre } from '../../api/api';
+import { addGenres, Genre } from '../../api/genre-api';
 
 type Props = {
     onAdd: (NewGenre: Genre) => void;
