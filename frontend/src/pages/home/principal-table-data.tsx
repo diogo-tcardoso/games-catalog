@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { getSystems, System, Genre, getGenres } from "../../api/api";
+import { Genre, getGenres } from "../../api/api";
+import { getSystems, System } from "../../api/system-api";
 import { Game, getPrincipalTable } from "../../api/game-api";
 import GameList from "../../components/games/game-list";
 import GameForm from "../../components/games/game-form";

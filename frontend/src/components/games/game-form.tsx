@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Genre, getGenres, getSystems, System, getTypes, Type } from "../../api/api";
+import { Genre, getGenres, getTypes, Type } from "../../api/api";
+import { getSystems, System } from "../../api/system-api";
 import { addNewGame, Game } from "../../api/game-api";
 import { Form, FormGroup, Label, Button, DataInput, SystemSelect, CalendarInput, GenreSelect, TypeSelect } from "../../styles/components-styles/game-form-styles";
 import DatePicker from "react-datepicker";

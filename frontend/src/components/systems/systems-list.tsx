@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { SystemsInput, SystemColor } from '../../styles/systems-styles/systems-styles';
 import { AddButton } from '../../styles/components-styles/game-list-style';
-import { addSystem } from '../../api/api';
-import { System } from '../../api/api';
+import { System, addSystem } from '../../api/system-api';
 
 type Props = {
     onAdd: (system: System) => void;
