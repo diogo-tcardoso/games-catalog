@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import SystemsList from '../../components/systems/systems-list';
 import SystemsData from './systems-data';
-import { getSystems, getPrincipalTable, deleteSystem } from '../../api/api';
-import { System, Game } from '../../api/api';
+import { getSystems, deleteSystem } from '../../api/api';
+import { System } from '../../api/api';
+import { Game, getPrincipalTable } from '../../api/game-api';
 
 export default function SystemsPage() {
     const [systems, setSystems] = useState<System[]>([]);

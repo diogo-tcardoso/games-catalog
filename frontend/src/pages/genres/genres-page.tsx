@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { deleteGenres, Game, Genre, getGenres, getPrincipalTable } from "../../api/api";
+import { deleteGenres, Genre, getGenres } from "../../api/api";
+import { Game, getPrincipalTable } from "../../api/game-api";
 import GenreData from "./genre-data";
 import GenresList from "../../components/genres/genres-list";
 
