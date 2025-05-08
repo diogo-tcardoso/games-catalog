@@ -49,13 +49,15 @@ export default function CalendarInput() {
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <ButtonFieldDatePicker sx={{
-                border: "2px solid #004f8d",
-                borderRadius: "7px",
-                color: "black",
-                fontFamily: 'Roboto, sans-serif',
-                fontSize: "15px",
-            }}/>
+            <ButtonFieldDatePicker
+                format='DD/MM/YYYY'
+                sx={{
+                    border: "2px solid #004f8d",
+                    borderRadius: "7px",
+                    color: "black",
+                    fontFamily: 'Roboto, sans-serif',
+                    fontSize: "15px",
+                }}/>
         </LocalizationProvider>
     );
 }
