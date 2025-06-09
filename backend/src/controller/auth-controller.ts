@@ -1,9 +1,11 @@
 import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import { PrismaClient } from "@prisma/client";
-import jwt from "jsonwebtoken"
+
 
 const prisma = new PrismaClient();
+const jwt = require("jsonwebtoken")
+const JWT_SECRET = process.env.JWT_SECRET || "your_default_jwt_secret";
 
 //! Register controller
 export const registerUser = async (req: Request, res: Response) => {
@@ -44,7 +46,8 @@ export const loginUser = async (req: Request, res: Response) => {
         });
 
         if (!registeredUser) {
-            return res.status(400).json({ error: "Usuário não registrado" });
+            res.status(400).json({ error: "Usuário não registrado" });
+            return;
         }
 
         const isPasswordValid = await bcrypt.compare(
@@ -53,7 +56,7 @@ export const loginUser = async (req: Request, res: Response) => {
         );
 
         if (!isPasswordValid) {
-            return res.status(401).json({ error: "Senha incorreta" });
+            res.status(401).json({ error: "Senha incorreta" });
         }
 
         const token = jwt.sign(
@@ -62,14 +65,13 @@ export const loginUser = async (req: Request, res: Response) => {
             { expiresIn: "1h" }
         );
 
-        return res.status(200).json({
+        res.status(200).json({
             message: "Login bem-sucedido",
             token,
             user: { id: registeredUser.id, email: registeredUser.email },
         });
     } catch (err) {
         console.error("Erro no login:", err);
-        return res.status(500).json({ error: "Erro interno no servidor" });
-  } 
+        res.status(500).json({ error: "Erro interno no servidor" });
+    } 
 };
-}
