@@ -1,6 +1,7 @@
 "use client"
 
 import Header from "@/components/header/header";
+import HeaderButtons from "@/components/header/buttons";
 import { useForm } from "react-hook-form"
 import { useState } from "react";
 import { Eye, EyeClosed } from "lucide-react";
@@ -27,7 +28,9 @@ export default function LoginPage() {
 
     return (
         <main className="font-sans">
-            <Header className="ml-[-350px]"/>
+            <Header>
+                <HeaderButtons />
+            </Header>
             <div className="flex flex-col h-35 justify-center mt-[-45px] text-center mb-35 items-center bg-gradient-to-br from-[#A1F9FF] to-[#135266]">
                 <h1 className="text-4xl font-bold mb-4">Bem-vindo ao Login</h1>
                 <p className="text-lg text-[#135266] font-semibold">Por favor, faça login para continuar.</p>

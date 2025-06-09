@@ -1,22 +1,12 @@
 import Image from "next/image";
 import Header from "@/components/header/header";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import HeaderButtons from "@/components/header/buttons";
 
 export default function Home() {
     return (
         <main className="font-sans">
             <Header>
-                <div className="flex justify-center mb-4 font-sans">
-                    <Link href="/login">
-                        <Button className="bg-blue-500 hover:bg-blue-600 text-gray-200 font-bold py-2 px-4 rounded cursor-pointer">
-                            Login
-                        </Button>
-                    </Link>
-                    <Button className="bg-green-500 hover:bg-green-600 text-gray-200 font-bold py-2 px-4 rounded ml-2 cursor-pointer">
-                        Registrar
-                    </Button>
-                </div>
+                <HeaderButtons />
             </Header>
             <div className="flex flex-col h-35 justify-center mt-[-45px] text-center mb-35 items-center bg-gradient-to-br from-[#A1F9FF] to-[#135266]">
                 <h1 className="text-5xl font-bold mb-2">Catalogue seus jogos zerados</h1>
