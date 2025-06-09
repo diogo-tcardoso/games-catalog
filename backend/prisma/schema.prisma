@@ -1,6 +1,7 @@
 generator client {
     provider      = "prisma-client-js"
     binaryTargets = ["native", "debian-openssl-3.0.x"]
+    output = "@prisma/client"
 }
 
 datasource db {
@@ -52,4 +53,13 @@ model Type {
     games Principal[] // Relacionamento com os jogos (Principal)
 
     @@map("type")
+}
+
+model User {
+    id              Int      @id @default(autoincrement())
+    email           String   @unique
+    hashedPassword  String
+    createdAt       DateTime @default(now())
+
+    @@map("user")
 }
