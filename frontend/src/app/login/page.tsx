@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form"
 import { useState } from "react";
 import { Eye, EyeClosed } from "lucide-react";
 import { useRouter } from "next/navigation";
+
 type FormData = {
     email: string
     password: string
@@ -20,9 +21,25 @@ export default function LoginPage() {
     const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
 
-    const onSubmit = (data: FormData) => {
-        // Aqui você pode validar credenciais reais, se quiser
-        console.log(data);
+    const onSubmit = async (data: FormData) => {
+        try {
+            const response = await fetch("http://localhost:3000/api/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (!response.ok) {
+                throw new Error("Erro ao fazer login");
+            }
+        } catch (error) {
+            console.error("Erro ao fazer login:", error);
+            alert("Erro ao fazer login. Por favor, tente novamente.");
+            return;
+        }
+        alert("Login realizado com sucesso!");
         router.push("/user");
     };
 
@@ -85,6 +102,7 @@ export default function LoginPage() {
                     <button
                         type="submit"
                         className="bg-[#18E1F8] text-gray-900 rounded-2xl p-2 mt-4 hover:bg-cyan-500 border border-cyan-500 transition-colors duration-300 cursor-pointer w-30"
+                        onClick={handleSubmit(onSubmit)}
                     >
                         Enviar
                     </button>

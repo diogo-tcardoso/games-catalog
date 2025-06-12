@@ -18,7 +18,7 @@ export interface Game {
 //! Function to fetch data from the principal table
 export const getPrincipalTable = async () => {
     try {
-        const response = await fetch(`${BASE_URL}/principal-table`);
+        const response = await fetch(`${BASE_URL}/user/principal-table`);
         if (!response.ok) {
             throw new Error("Failed to fetch data");
         }
@@ -32,7 +32,7 @@ export const getPrincipalTable = async () => {
 //! Function to create a new game entry
 export const addNewGame = async (gameData: Game): Promise<Game[]> => {
     try {
-        const response = await fetch(`${BASE_URL}/principal-table`, {
+        const response = await fetch(`${BASE_URL}/user/principal-table`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -51,7 +51,7 @@ export const addNewGame = async (gameData: Game): Promise<Game[]> => {
 
 //! Function to delete a game entry
 export async function deleteGame(id: number) {
-    const res = await fetch(`${BASE_URL}/principal-table/${id}`, {
+    const res = await fetch(`${BASE_URL}/user/principal-table/${id}`, {
         method: "DELETE",
     });
     if (!res.ok) {
@@ -69,7 +69,7 @@ export interface Genre {
 //! Function to fetch all genres
 export const getGenres = async () => {
     try {
-        const response = await fetch(`${BASE_URL}/genres`);
+        const response = await fetch(`${BASE_URL}/user/genres`);
         if (!response.ok) {
             throw new Error("Failed to fetch genres");
         }
@@ -84,7 +84,7 @@ export const getGenres = async () => {
 export type NewGenre = Omit<Genre, 'id'>;
 export const addGenres = async (genreData: NewGenre): Promise<Genre> => {
     try {
-        const response = await fetch(`${BASE_URL}/genres`, {
+        const response = await fetch(`${BASE_URL}/user/genres`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -104,7 +104,7 @@ export const addGenres = async (genreData: NewGenre): Promise<Genre> => {
 //! Function to delete a genre
 export const deleteGenres = async (id: number) => {
     try {
-        const response = await fetch(`${BASE_URL}/genres/${id}`, {
+        const response = await fetch(`${BASE_URL}/user/genres/${id}`, {
             method: "DELETE",
         });
         if (!response.ok) {
@@ -118,7 +118,7 @@ export const deleteGenres = async (id: number) => {
 
 //! Function to put a genre entry
 export const putGenre = async (genre: Genre): Promise<Genre> => {
-    const response = await fetch(`${BASE_URL}/genres/${genre.id}`, {
+    const response = await fetch(`${BASE_URL}/user/genres/${genre.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(genre),
@@ -137,7 +137,7 @@ export interface System {
 //! Function to fetch all systems
 export const getSystems = async () => {
     try {
-        const response = await fetch(`${BASE_URL}/systems`);
+        const response = await fetch(`${BASE_URL}/user/systems`);
         if (!response.ok) {
             throw new Error("Failed to fetch systems");
         }
@@ -152,7 +152,7 @@ export const getSystems = async () => {
 export type NewSystem = Omit<System, 'id'>;
 export const addSystem = async (systemData: NewSystem): Promise<System> => {
     try {
-        const response = await fetch(`${BASE_URL}/systems`, {
+        const response = await fetch(`${BASE_URL}/user/systems`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -172,7 +172,7 @@ export const addSystem = async (systemData: NewSystem): Promise<System> => {
 //! Function to delete a system
 export const deleteSystem = async (id: number) => {
     try {
-        const response = await fetch(`${BASE_URL}/systems/${id}`, {
+        const response = await fetch(`${BASE_URL}/user/systems/${id}`, {
             method: "DELETE",
         });
         if (!response.ok) {
@@ -194,7 +194,7 @@ export interface Type {
 //! Function to fetch all types
 export const getTypes = async () => {
     try {
-        const response = await fetch(`${BASE_URL}/types`);
+        const response = await fetch(`${BASE_URL}/user/types`);
         if (!response.ok) {
             throw new Error("Failed to fetch types");
         }
@@ -209,7 +209,7 @@ export const getTypes = async () => {
 export type NewType = Omit<Type, 'id'>;
 export const addType = async (typeData: NewType): Promise<Type> => {
     try {
-        const response = await fetch(`${BASE_URL}/types`, {
+        const response = await fetch(`${BASE_URL}/user/types`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -229,7 +229,7 @@ export const addType = async (typeData: NewType): Promise<Type> => {
 //! Function to delete a type
 export const deleteType = async (id: number) => {
     try {
-        const response = await fetch(`${BASE_URL}/types/${id}`, {
+        const response = await fetch(`${BASE_URL}/user/types/${id}`, {
             method: "DELETE",
         });
         if (!response.ok) {
