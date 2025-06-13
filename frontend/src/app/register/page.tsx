@@ -6,30 +6,33 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeClosed } from "lucide-react";
-import { registerUser } from "@/services/auth";
+import { registerUser } from "@/lib/api";
 
 type FormData = {
     email: string;
     password: string;
 };
 
-export default function RegisterPage (){
+export default function RegisterPage() {
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm<FormData>();
+    
     const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
 
     const onSubmit = async (data: FormData) => {
         try {
-            await registerUser(data);
-            alert("Usuário registrado com sucesso!");
-            router.push("/login");
+        await registerUser(data.email, data.password);
+        alert("Usuário registrado com sucesso!");
+        router.push("/login");
         } catch (error) {
-            console.error("Erro no registro:", error);
-            alert("Erro de conexão com o servidor.");
+        const message =
+            error instanceof Error ? error.message : "Erro de conexão com o servidor.";
+        console.error("Erro no registro:", error);
+        alert(message);
         }
     };
 
@@ -40,7 +43,9 @@ export default function RegisterPage (){
             </Header>
             <div className="flex flex-col h-35 justify-center mt-[-45px] text-center mb-35 items-center bg-gradient-to-br from-[#A1F9FF] to-[#135266]">
                 <h1 className="text-4xl font-bold font-Quantico mb-4">Registre-se</h1>
-                <p className="text-lg text-[#135266] font-semibold">Por favor, faça seu registro para criar seu catálogo.</p>
+                <p className="text-lg text-[#135266] font-semibold">
+                Por favor, faça seu registro para criar seu catálogo.
+                </p>
             </div>
             <div className="flex items-center justify-center w-screen">
                 <form
@@ -50,11 +55,11 @@ export default function RegisterPage (){
                     <label className="mb-2">E-mail</label>
                     <input
                         {...register("email", {
-                            required: "Campo Obrigatório",
-                            pattern: {
-                                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                                message: "E-mail inválido",
-                            },
+                        required: "Campo Obrigatório",
+                        pattern: {
+                            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                            message: "E-mail inválido",
+                        },
                         })}
                         className="border-cyan-800 rounded-2xl border-2 mb-2 p-1 pl-3"
                         placeholder="example@email.com"
@@ -71,8 +76,8 @@ export default function RegisterPage (){
                             {...register("password", {
                                 required: "Campo Obrigatório",
                                 minLength: {
-                                    value: 8,
-                                    message: "A senha deve ter pelo menos 8 caracteres",
+                                value: 8,
+                                message: "A senha deve ter pelo menos 8 caracteres",
                                 },
                             })}
                             className="border-cyan-800 rounded-2xl border-2 p-1 pl-3 w-full"
@@ -82,7 +87,7 @@ export default function RegisterPage (){
                             onClick={() => setShowPassword((prev) => !prev)}
                             className="absolute right-2 top-4.5 transform -translate-y-1/2 text-cyan-800 hover:text-cyan-800 cursor-pointer"
                         >
-                            {showPassword ? <EyeClosed size={20} /> : <Eye size={20} />}
+                        {showPassword ? <EyeClosed size={20} /> : <Eye size={20} />}
                         </button>
                     </div>
                     {errors.password && (
@@ -98,5 +103,5 @@ export default function RegisterPage (){
                 </form>
             </div>
         </main>
-    )
+    );
 }
