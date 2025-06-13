@@ -9,32 +9,33 @@ const JWT_SECRET = process.env.JWT_SECRET || "your_default_jwt_secret";
 
 //! Register controller
 export const registerUser = async (req: Request, res: Response) => {
-    const { email, password } = req.body;
+    const { email, password } = req.body
+
+    if (!email || !password) {
+        res.status(400).json({ message: 'Preencha todos os campos.' })
+    }
 
     try {
-        const existingUser = await prisma.user.findUnique({ where: { email } });
-        if (existingUser) {
-            res.status(400).json({ error: "Usuário já existe." });
+        const userExists = await prisma.user.findUnique({ where: { email } })
+
+        if (userExists) {
+            res.status(409).json({ message: 'E-mail já cadastrado.' })
         }
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10)
 
-        const newUser = await prisma.user.create({
-            data: {
-                email,
-                hashedPassword: hashedPassword,
-            },
-        });
+        const user = await prisma.user.create({
+            data: { email, hashedPassword },
+        })
 
         res.status(201).json({
-            message: "Usuário criado com sucesso!",
-            user: { id: newUser.id, email: newUser.email },
-        });
-    } catch (err) {
-        console.error("Erro ao registrar:", err);
-        res.status(500).json({ error: "Erro interno do servidor." });
+            message: 'Usuário registrado com sucesso!',
+            user: { id: user.id, email: user.email, password:hashedPassword },
+        })
+    } catch (error) {
+        res.status(500).json({ message: 'Erro interno', error })
     }
-};
+}
 
 //! Login Controller
 export const loginUser = async (req: Request, res: Response) => {

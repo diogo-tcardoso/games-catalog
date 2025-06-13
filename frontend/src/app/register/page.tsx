@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeClosed } from "lucide-react";
+import { registerUser } from "@/services/auth";
 
 type FormData = {
     email: string;
@@ -23,23 +24,9 @@ export default function RegisterPage (){
 
     const onSubmit = async (data: FormData) => {
         try {
-            const response = await fetch("http://localhost:3000/api/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            });
-
-            const result = await response.json();
-
-            if (!response.ok) {
-                alert(result.error || "Erro ao registrar usuário");
-                return;
-            }
-
+            await registerUser(data);
             alert("Usuário registrado com sucesso!");
-            router.push("/login"); // ou vá para o dashboard direto
+            router.push("/login");
         } catch (error) {
             console.error("Erro no registro:", error);
             alert("Erro de conexão com o servidor.");
@@ -47,12 +34,12 @@ export default function RegisterPage (){
     };
 
     return (
-        <main>
+        <main className="font-sans">
             <Header>
                 <HeaderButtons />
             </Header>
             <div className="flex flex-col h-35 justify-center mt-[-45px] text-center mb-35 items-center bg-gradient-to-br from-[#A1F9FF] to-[#135266]">
-                <h1 className="text-4xl font-bold mb-4">Registre-se</h1>
+                <h1 className="text-4xl font-bold font-Quantico mb-4">Registre-se</h1>
                 <p className="text-lg text-[#135266] font-semibold">Por favor, faça seu registro para criar seu catálogo.</p>
             </div>
             <div className="flex items-center justify-center w-screen">
