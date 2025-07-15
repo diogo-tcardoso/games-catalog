@@ -22,6 +22,8 @@ export default function GameList({
 }){
 
     const sortedGames = [...games].sort((a, b) => a.nome.localeCompare(b.nome));
+    
+    const tableMenu = "font-bold text-[16px] p-2 border-[#005DAB] bg-gradient-to-b from-[#0095F7] to-[#0076D3] uppercase font-sans"
 
     const getSystemName = (id: number) => {
         const system = systems.find(s => s.id === id);
@@ -68,27 +70,27 @@ export default function GameList({
 
     return (
         <div>
-            <div>
-                <h2 style={{ fontSize: "30px", color: "#ffffff", marginBottom: "5px", marginTop: "5px" }}>
+            <div className="flex justify-items-center justify-evenly font-sans items-center mb-3.5">
+                <h2 className="text-3xl mb-1 mt-1 text-gray-100">
                     JOGOS FINALIZADOS
                 </h2>
-                <button onClick={onAddClick}>Adicionar Jogo</button>
+                <button className="rounded-2xl border-2 bg-gradient-to-b from-[#0095F7] to-[#0076D3] border-[#005DAB] text-gray-100 font-bold text-[16px] w-36 p-1 hover:border-[#004F8D] hover:cursor-pointer hover:bg-gradient-to-t from-[#0076D3] to-[#005DAB]" onClick={onAddClick}>Adicionar Jogo</button>
             </div>
 
             <table>
                 <thead>
                     <tr>
-                        <th>Nome</th>
-                        <th>Console</th>
-                        <th>Gênero</th>
-                        <th>Tipo</th>
-                        <th>Iniciado</th>
-                        <th>Finalizado</th>
-                        <th>Tempo</th>
-                        <th>Nota</th>
-                        <th>Dificuldade</th>
-                        <th>Zeramento</th>
-                        <th>Ações</th>
+                        <th className={tableMenu}>Nome</th>
+                        <th className={tableMenu}>Console</th>
+                        <th className={tableMenu}>Gênero</th>
+                        <th className={tableMenu}>Tipo</th>
+                        <th className={tableMenu}>Iniciado</th>
+                        <th className={tableMenu}>Finalizado</th>
+                        <th className={tableMenu}>Tempo</th>
+                        <th className={tableMenu}>Nota</th>
+                        <th className={tableMenu}>Dificuldade</th>
+                        <th className={tableMenu}>Zeramento</th>
+                        <th className={tableMenu}>Ações</th>
                     </tr>
                 </thead>
                 <tbody>

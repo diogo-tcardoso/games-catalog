@@ -44,8 +44,8 @@ export default function HomePage() {
     }, []);    
 
     return (
-        <main>
-            <div className="flex flex-col items-center justify-center h-screen">
+        <>
+            <div>
                 <GameList games={games} systems={systems} genres={genres}types={types} onAddClick={() => setIsModalOpen(true)} onDeleteComplete={fetchGames}/>
                 {isModalOpen && (
                     <Modal onClose={() => setIsModalOpen(false)}>
@@ -56,6 +56,6 @@ export default function HomePage() {
                     </Modal>
                 )}
             </div>
-        </main>
+        </>
     );
 }

@@ -8,7 +8,7 @@ export default function HomeLayout({ children }: { children: React.ReactNode }) 
             <Header>
                 <MenuHeader />
             </Header>
-            <div className="flex flex-col items-center justify-center h-screen">
+            <div className="flex justify-center items-center">
                 {children}
             </div>
         </main>

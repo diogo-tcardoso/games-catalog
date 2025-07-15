@@ -30,6 +30,9 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
     const [finalizado, setFinalizado] = useState<Dayjs | null>(null);
 
 
+    const formGroup = "flex flex-row m-0.5"
+    const button = "bg-gradient-to-br from-[#A1F9FF] to-[#135266] text-white rounded-[20px] font-sans p-2 cursor-pointer text-[16px] font-bold m-3 min-w-30 hover:bg-gradient-to-l from-#0076D3 to-#005DAB"
+
     useEffect(() => {
         const fetchSystems = async () => {
             try {
@@ -136,20 +139,20 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="flex justify-center flex-col items-center max-w-[600px] rounded-2xl p-3 bg-gray-200 mt-3">
             <div>
-                <h1 style={{color: "#000000", marginRight: "20px", marginLeft: "20px", fontFamily: "Winky Rough"}}>Form Jogo Finalizado</h1>
+                <h1 className="mr-[20px] ml-[20px] font-sans text-black font-bold text-2xl p-3">Form Jogo Finalizado</h1>
             </div>
 
-            <div style={{display: "flex", flexWrap: "wrap", justifyContent: "space-between"}}>
-                <div>
-                    <label>
+            <div className="flex flex-wrap justify-between">
+                <div className={formGroup}>
+                    <label className="flex m-0.5 font-bold font-sans text-black justify-between">
                         Nome:
                         <input type="text" name="nome" value={game.nome} onChange={handleChange} style={{marginLeft:"10px"}} />
                     </label>
                 </div>
-                <div>
-                    <label>
+                <div className={formGroup}>
+                    <label className="flex m-0.5 font-bold font-sans text-black justify-between">
                         Console:
                         <select name="systemId" value={game.systemId} onChange={handleChange} style={{marginLeft:"10px"}} disabled={loadingSystems}>
                             {loadingSystems ? (
@@ -167,8 +170,8 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
                         </select>
                     </label>
                 </div>
-                <div>
-                    <label>
+                <div className={formGroup}>
+                    <label className="flex m-0.5 font-bold font-sans text-black justify-between">
                         Genero:
                             <select name="genreId" value={game.genreId} onChange={handleChange} style={{marginLeft:"10px"}}>
                             {loadingGenres ? (
@@ -186,8 +189,8 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
                             </select>
                     </label>
                 </div>
-                <div>
-                    <label>
+                <div className={formGroup}>
+                    <label className="flex m-0.5 font-bold font-sans text-black justify-between">
                         Tipo:
                         <select name="typeId" value={game.typeId} onChange={handleChange} style={{marginLeft:"10px"}}>
                             {loadingTypes ? (
@@ -205,38 +208,38 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
                         </ select>
                     </label>
                 </div>
-                <div>
-                    <label>
+                <div className={formGroup}>
+                    <label className="flex m-0.5 font-bold font-sans text-black justify-between">
                         Iniciado:&nbsp;
                         <input />
                     </label>
                 </div>
-                <div>
-                    <label>
+                <div className={formGroup}>
+                    <label className="flex m-0.5 font-bold font-sans text-black justify-between">
                         Finalizado:&nbsp;
                         <input />
                     </label>
                 </div>
-                <div>
-                    <label>
+                <div className={formGroup}>
+                    <label className="flex m-0.5 font-bold font-sans text-black justify-between">
                         Tempo:
                         <input type="text" name="tempo" value={game.tempo} onChange={handleChange} placeholder="000:00:00" pattern="^\d{1,3}:\d{2}:\d{2}$" style={{marginLeft:"10px"}}/>
                     </label>
                 </div>
-                <div>
-                    <label>
+                <div className={formGroup}>
+                    <label className="flex m-0.5 font-bold font-sans text-black justify-between">
                         Nota:
                         <input type="number" name="nota" value={game.nota} onChange={handleChange} style={{marginLeft:"10px"}}/>
                     </label>
                 </div>
-                <div>
-                    <label>
+                <div className={formGroup}>
+                    <label className="flex m-0.5 font-bold font-sans text-black justify-between">
                         Dificuldade:
                         <input type="text" name="dificuldade" value={game.dificuldade} onChange={handleChange} style={{marginLeft:"10px"}}/>
                     </label>
                 </div>
-                <div>
-                    <label>
+                <div className={formGroup}>
+                    <label className="flex m-0.5 font-bold font-sans text-black justify-between">
                         Zeramento:
                         <input type="text" name="zeramento" value={game.zeramento} onChange={handleChange} style={{marginLeft:"10px"}}/>
                     </label>
@@ -244,8 +247,8 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
             </div>
             
             <div>
-                <button type="submit">Salvar Jogo</button>
-                <button type="reset" onClick={() => setGame(initialState)}>Limpar</button>
+                <button className={button} type="submit">Salvar</button>
+                <button className={button} type="reset" onClick={() => setGame(initialState)}>Limpar</button>
             </div>
         </form>
     )
