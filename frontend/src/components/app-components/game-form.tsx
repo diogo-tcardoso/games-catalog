@@ -31,7 +31,7 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
 
 
     const formGroup = "flex flex-row m-0.5"
-    const button = "bg-gradient-to-br from-[#A1F9FF] to-[#135266] text-white rounded-[20px] font-sans p-2 cursor-pointer text-[16px] font-bold m-3 min-w-30 hover:bg-gradient-to-l from-#0076D3 to-#005DAB"
+    const button = "bg-gradient-to-br from-[#0095F7] to-[#0076D3] border border-[#005DAB] text-white rounded-[20px] font-sans p-2 cursor-pointer text-[16px] font-bold m-3 min-w-30 hover:bg-gradient-to-l from-#0076D3 to-#005DAB"
 
     useEffect(() => {
         const fetchSystems = async () => {
@@ -223,13 +223,13 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
                 <div className={formGroup}>
                     <label className="flex m-0.5 font-bold font-sans text-black justify-between">
                         Tempo:
-                        <input type="text" name="tempo" value={game.tempo} onChange={handleChange} placeholder="000:00:00" pattern="^\d{1,3}:\d{2}:\d{2}$" style={{marginLeft:"10px"}}/>
+                        <input type="text" name="tempo" value={game.tempo} onChange={handleChange} placeholder="000:00:00" pattern="^\d{1,3}:\d{2}:\d{2}$" className="ml-2.5"/>
                     </label>
                 </div>
                 <div className={formGroup}>
                     <label className="flex m-0.5 font-bold font-sans text-black justify-between">
                         Nota:
-                        <input type="number" name="nota" value={game.nota} onChange={handleChange} style={{marginLeft:"10px"}}/>
+                        <input type="number" name="nota" value={game.nota} onChange={handleChange} className="ml-2.5"/>
                     </label>
                 </div>
                 <div className={formGroup}>

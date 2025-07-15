@@ -8,11 +8,11 @@ interface ModalProps {
 export default function Modal({ children, onClose }: ModalProps) {
 
     return(
-        <>
-            <button className="absolute w-6 mt-5 ml-2 bg-gradient-to-b from-[#0095F7] to-[#0076D3] border-[#005DAB] rounded-full text-[18px] cursor-pointer" onClick={onClose}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+                <button className="absolute w-6 top-3 right-3 bg-gradient-to-b from-[#0095F7] to-[#0076D3] border border-[#005DAB] rounded-full text-[16px] cursor-pointer" onClick={onClose}>
                 X
-            </button>
-            {children}
-        </>
+                </button>
+                {children}
+        </div>
     )
 }
