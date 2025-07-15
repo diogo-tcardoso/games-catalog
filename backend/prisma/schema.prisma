@@ -11,54 +11,74 @@ datasource db {
 model Principal {
     id          Int      @id @default(autoincrement())
     nome        String
-    genre       Genre    @relation(fields: [genreId], references: [id])
     iniciado    DateTime
     finalizado  DateTime
     tempo       String
     nota        Int
     dificuldade String
     zeramento   String
+
+    genreId     Int
+    genre       Genre    @relation(fields: [genreId], references: [id])
+
     systemId    Int
     system      System   @relation(fields: [systemId], references: [id])
-    genreId     Int
-    type        Type    @relation(fields: [typeId], references: [id])
+
     typeId      Int
+    type        Type     @relation(fields: [typeId], references: [id])
+
+    userId      Int
+    user        User     @relation(fields: [userId], references: [id])
 
     @@map("principal")
 }
 
 model System {
-    id    Int         @id @default(autoincrement())
-    name  String
-    color String
-    games Principal[] // Relacionamento com os jogos (Principal)
+    id      Int          @id @default(autoincrement())
+    name    String
+    color   String
+    games   Principal[]  // Relacionamento com os jogos (Principal)
+
+    userId  Int
+    user    User         @relation(fields: [userId], references: [id])
 
     @@map("systems")
 }
 
 model Genre {
-    id    Int         @id @default(autoincrement())
-    name  String
-    color String
-    games Principal[] // Relacionamento com os jogos (Principal)
+    id      Int          @id @default(autoincrement())
+    name    String
+    color   String
+    games   Principal[]  // Relacionamento com os jogos (Principal)
+
+    userId  Int
+    user    User         @relation(fields: [userId], references: [id])
 
     @@map("genre")
 }
 
 model Type {
-    id    Int         @id @default(autoincrement())
-    name  String
-    color String
-    games Principal[] // Relacionamento com os jogos (Principal)
+    id      Int          @id @default(autoincrement())
+    name    String
+    color   String
+    games   Principal[]  // Relacionamento com os jogos (Principal)
+
+    userId  Int
+    user    User         @relation(fields: [userId], references: [id])
 
     @@map("type")
 }
 
 model User {
-    id              Int      @id @default(autoincrement())
-    email           String   @unique
-    password        String
-    createdAt       DateTime @default(now())
+    id         Int          @id @default(autoincrement())
+    email      String       @unique
+    password   String
+    createdAt  DateTime     @default(now())
+
+    games      Principal[]
+    systems    System[]
+    genres     Genre[]
+    types      Type[]
 
     @@map("user")
 }
