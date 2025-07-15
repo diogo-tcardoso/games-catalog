@@ -10,9 +10,9 @@ export default function MenuHeader(){
                     <DropdownMenuTrigger className="sm:hidden">
                         <Menu className="w-7 h-7 text-gray-800" />
                     </DropdownMenuTrigger>
-                        <DropdownMenuContent className="ml-5 w-40 text-gray-300">
+                        <DropdownMenuContent className="ml-5 w-40 text-gray-100 font-bold">
                             <DropdownMenuLabel className="text-center text-lg font-bold">Menu</DropdownMenuLabel>
-                            <DropdownMenuItem asChild className="focus:bg-blue-500">
+                            <DropdownMenuItem asChild className="focus:bg-blue-500 text-white">
                                 <Link href="/user">Home</Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem asChild className="focus:bg-blue-500">
@@ -34,7 +34,7 @@ export default function MenuHeader(){
                 </DropdownMenu>
 
                 {/* Desktop menu */}
-                <ul className="hidden sm:flex gap-0.5 justify-center mt-2 max-w-4xl text-gray-300">
+                <ul className="hidden sm:flex gap-0.5 justify-center mt-2 max-w-4xl text-gray-100">
                     <li className="hover:bg-blue-500 w-30 h-7 flex justify-center items-center rounded-2xl"><Link href="/user">Home</Link></li>
                     <li className="hover:bg-blue-500 w-30 h-7 flex justify-center items-center rounded-2xl"><Link href="/user/systems">Sistemas</Link></li>
                     <li className="hover:bg-blue-500 w-30 h-7 flex justify-center items-center rounded-2xl"><Link href="/user/genres">Gêneros</Link></li>
