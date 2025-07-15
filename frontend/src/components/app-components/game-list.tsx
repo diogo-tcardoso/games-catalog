@@ -74,7 +74,7 @@ export default function GameList({
                 <h2 className="text-3xl mb-1 mt-1 text-gray-100">
                     JOGOS FINALIZADOS
                 </h2>
-                <button className="rounded-2xl border-2 bg-gradient-to-b from-[#0095F7] to-[#0076D3] border border-[#005DAB] text-gray-100 font-bold text-[16px] w-36 p-1 hover:cursor-pointer hover:bg-gradient-to-t from-[#0076D3] to-[#005DAB]" onClick={onAddClick}>Adicionar Jogo</button>
+                <button className="rounded-2xl bg-gradient-to-b from-[#0095F7] to-[#0076D3] border border-[#005DAB] text-gray-100 font-bold text-[16px] w-36 p-1 hover:cursor-pointer hover:bg-gradient-to-t from-[#0076D3] to-[#005DAB]" onClick={onAddClick}>Adicionar Jogo</button>
             </div>
 
             <table>
