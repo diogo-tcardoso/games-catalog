@@ -13,12 +13,13 @@ export interface Game {
     dificuldade: string;
     zeramento: string;
     systemId: number;
+    UserId: number;
 }
 
 //! Function to fetch data from the principal table
-export const getPrincipalTable = async () => {
+export const getPrincipalTable = async (userId: number) => {
     try {
-        const response = await fetch(`${BASE_URL}/principal-table`);
+        const response = await fetch(`${BASE_URL}/user/${userId}/principal-table`);
         if (!response.ok) {
             throw new Error("Failed to fetch data");
         }
@@ -30,9 +31,9 @@ export const getPrincipalTable = async () => {
 };
 
 //! Function to create a new game entry
-export const addNewGame = async (gameData: Game): Promise<Game[]> => {
+export const addNewGame = async (userId: number, gameData: Game): Promise<Game[]> => {
     try {
-        const response = await fetch(`${BASE_URL}/principal-table`, {
+        const response = await fetch(`${BASE_URL}/user/${userId}/principal-table`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -50,8 +51,8 @@ export const addNewGame = async (gameData: Game): Promise<Game[]> => {
 };
 
 //! Function to delete a game entry
-export async function deleteGame(id: number) {
-    const res = await fetch(`${BASE_URL}/principal-table/${id}`, {
+export async function deleteGame(userId: number, id: number) {
+    const res = await fetch(`${BASE_URL}/user/${userId}/principal-table/${id}`, {
         method: "DELETE",
     });
     if (!res.ok) {

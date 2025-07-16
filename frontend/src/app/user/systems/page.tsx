@@ -17,7 +17,7 @@ export default function SystemsPage() {
         const loadData = async () => {
             const [systemsData, gamesData] = await Promise.all([
                 getSystems(userId),
-                getPrincipalTable()
+                getPrincipalTable(userId)
             ]);
             setSystems(systemsData);
             setGames(gamesData);

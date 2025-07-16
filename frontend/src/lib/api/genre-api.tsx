@@ -6,12 +6,13 @@ export interface Genre {
     id: number;
     name: string;
     color: string;
+    userId: number;
 }
 
 //! Function to fetch all genres
-export const getGenres = async () => {
+export const getGenres = async (userId: number) => {
     try {
-        const response = await fetch(`${BASE_URL}/genres`);
+        const response = await fetch(`${BASE_URL}/user/${userId}/genres`);
         if (!response.ok) {
             throw new Error("Failed to fetch genres");
         }
@@ -23,10 +24,10 @@ export const getGenres = async () => {
 };
 
 //! Function to create a new genre
-export type NewGenre = Omit<Genre, 'id'>;
-export const addGenres = async (genreData: NewGenre): Promise<Genre> => {
+export type NewGenre = Omit<Genre, 'id' | 'userId'>;
+export const addGenres = async (userId: number, genreData: NewGenre): Promise<Genre> => {
     try {
-        const response = await fetch(`${BASE_URL}/genres`, {
+        const response = await fetch(`${BASE_URL}/user/${userId}/genres`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -44,9 +45,9 @@ export const addGenres = async (genreData: NewGenre): Promise<Genre> => {
 };
 
 //! Function to delete a genre
-export const deleteGenres = async (id: number) => {
+export const deleteGenres = async (userId: number, id: number) => {
     try {
-        const response = await fetch(`${BASE_URL}/genres/${id}`, {
+        const response = await fetch(`${BASE_URL}/user/${userId}/genres/${id}`, {
             method: "DELETE",
         });
         if (!response.ok) {
@@ -59,8 +60,8 @@ export const deleteGenres = async (id: number) => {
 };
 
 //! Function to put a genre entry
-export const putGenre = async (genre: Genre): Promise<Genre> => {
-    const response = await fetch(`${BASE_URL}/genres/${genre.id}`, {
+export const putGenre = async (userId: number, genre: Genre): Promise<Genre> => {
+    const response = await fetch(`${BASE_URL}/user/${userId}/genres/${genre.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(genre),

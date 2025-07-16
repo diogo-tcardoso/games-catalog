@@ -1,6 +1,7 @@
 import Image from "next/image";
-import Header from "@/components/header/header";
-import HeaderButtons from "@/components/header/buttons";
+import Header from "@/components/page-component/header";
+import HeaderButtons from "@/components/page-component/buttons";
+import Footer from "@/components/page-component/footer";
 
 export default function Home() {
     return (
@@ -25,6 +26,7 @@ export default function Home() {
                     </div>
                 </div>
             </section>
+            <Footer/>
         </main>
     );
 }

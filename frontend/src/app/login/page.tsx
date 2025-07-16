@@ -1,11 +1,12 @@
 "use client"
 
-import Header from "@/components/header/header";
-import HeaderButtons from "@/components/header/buttons";
+import Header from "@/components/page-component/header";
+import HeaderButtons from "@/components/page-component/buttons";
 import { useForm } from "react-hook-form"
 import { useState } from "react";
 import { Eye, EyeClosed } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Footer from "@/components/page-component/footer";
 
 type FormData = {
     email: string
@@ -108,6 +109,7 @@ export default function LoginPage() {
                     </button>
                 </form>
             </div>
+            <Footer />
         </main>
     );
 }

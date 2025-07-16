@@ -5,12 +5,13 @@ export interface Type {
     id: number;
     name: string;
     color: string;
+    userId: number;
 }
 
 //! Function to fetch all types
-export const getTypes = async () => {
+export const getTypes = async (userId: number) => {
     try {
-        const response = await fetch(`${BASE_URL}/types`);
+        const response = await fetch(`${BASE_URL}/user/${userId}/types`);
         if (!response.ok) {
             throw new Error("Failed to fetch types");
         }
@@ -22,10 +23,10 @@ export const getTypes = async () => {
 };
 
 //! Function to create a new type
-export type NewType = Omit<Type, 'id'>;
-export const addType = async (typeData: NewType): Promise<Type> => {
+export type NewType = Omit<Type, 'id' | 'userId'>;
+export const addType = async (userId: number, typeData: NewType): Promise<Type> => {
     try {
-        const response = await fetch(`${BASE_URL}/types`, {
+        const response = await fetch(`${BASE_URL}/user/${userId}/types`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -43,9 +44,9 @@ export const addType = async (typeData: NewType): Promise<Type> => {
 };
 
 //! Function to delete a type
-export const deleteType = async (id: number) => {
+export const deleteType = async (userId: number, id: number) => {
     try {
-        const response = await fetch(`${BASE_URL}/types/${id}`, {
+        const response = await fetch(`${BASE_URL}/user/${userId}/types/${id}`, {
             method: "DELETE",
         });
         if (!response.ok) {

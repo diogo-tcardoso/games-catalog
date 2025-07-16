@@ -1,6 +1,7 @@
-import Header from "@/components/header/header";
-import MenuHeader from "@/components/header/menu";
+import Header from "@/components/page-component/header";
+import MenuHeader from "@/components/page-component/menu";
 import { UserProvider } from "@/context/userContext";
+import Footer from "@/components/page-component/footer";
 
 export default function HomeLayout({ children }: { children: React.ReactNode }) {
 
@@ -14,6 +15,7 @@ export default function HomeLayout({ children }: { children: React.ReactNode }) 
                     {children}
                 </div>
             </UserProvider>
+            <Footer />
         </main>
     )
 }

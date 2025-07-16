@@ -20,32 +20,32 @@ export default function HomePage() {
     const params = useParams();
     const userId = Number(params.userId);
     
-    const fetchGames = async () => {
-        const data = await getPrincipalTable();
+    const fetchGames = useCallback (async () => {
+        const data = await getPrincipalTable(userId);
         setGames(data);
-    }
+    }, [userId])
 
     const fetchSystems = useCallback(async () => {
         const data = await getSystems(userId);
         setSystems(data);
     }, [userId]);
 
-    const fetchGenres = async () => {
-        const data = await getGenres();
+    const fetchGenres = useCallback (async () => {
+        const data = await getGenres(userId);
         setGenres(data);
-    }
+    }, [userId]);
 
-    const fetchTypes = async () => {
-        const data = await getTypes();
+    const fetchTypes = useCallback (async () => {
+        const data = await getTypes(userId);
         setTypes(data);
-    }
+    }, [userId])
 
     useEffect(() => {
         fetchGames();
         fetchSystems();
         fetchGenres();
         fetchTypes();
-    }, [fetchSystems]);    
+    }, [fetchSystems, fetchGenres, fetchTypes, fetchGames]);    
 
     return (
         <>
