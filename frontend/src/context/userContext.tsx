@@ -1,5 +1,6 @@
 'use client';
-import { createContext, useContext, useState, ReactNode } from 'react';
+
+import { createContext, useContext, useState, ReactNode } from "react";
 
 type User = {
     id: number;
@@ -8,16 +9,25 @@ type User = {
 
 type UserContextType = {
     user: User | null;
-    setUser: (user: User | null) => void;
+    setUser: (user: User) => void;
+    logout: () => void;
 };
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUserState] = useState<User | null>(null);
+
+    const setUser = (userData: User) => {
+        setUserState(userData);
+    };
+
+    const logout = () => {
+        setUserState(null);
+    };
 
     return (
-        <UserContext.Provider value={{ user, setUser }}>
+        <UserContext.Provider value={{ user, setUser, logout }}>
         {children}
         </UserContext.Provider>
     );
@@ -25,6 +35,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
 export const useUser = () => {
     const context = useContext(UserContext);
-    if (!context) throw new Error('useUser must be used inside UserProvider');
+    if (!context) throw new Error("useUser deve ser usado dentro de UserProvider");
     return context;
 };

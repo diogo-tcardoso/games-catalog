@@ -4,13 +4,14 @@ import { Router } from "express";
 const prisma = new PrismaClient();
 const router = Router();
 
-router.get("/principal-table", async (req, res) => {
+router.get("/user/:userId/principal-table", async (req, res) => {
     try {
         const principalTable = await prisma.principal.findMany({
             include: {
                 system: true,
                 genre: true,
                 type: true,
+                user: true,
             },
         });
         res.json(principalTable);
@@ -20,8 +21,8 @@ router.get("/principal-table", async (req, res) => {
     }
 });
 
-router.post("/principal-table", async (req, res) => {
-    const { nome, genreId, typeId, iniciado, finalizado, tempo, nota, dificuldade, zeramento, systemId } = req.body;
+router.post("/user/:userId/principal-table", async (req, res) => {
+    const { nome, genreId, typeId, iniciado, finalizado, tempo, nota, dificuldade, zeramento, systemId, userId } = req.body;
 
     if (systemId <= 0 || genreId <= 0 || !nome || typeId <= 0 || !iniciado || !finalizado || !tempo || nota === undefined || !dificuldade || !zeramento) {
         res.status(400).json({ message: "Todos os campos são obrigatórios" });
@@ -43,6 +44,11 @@ router.post("/principal-table", async (req, res) => {
             res.status(404).json({ message: "Tipo não encontrado." });
         }
 
+        const existintingUser = await prisma.user.findUnique({ where: { id: userId } });
+        if (!existintingUser) {
+            res.status(404).json({ message: "Usuário não encontrado." });
+        }
+
         const newPrincipal = await prisma.principal.create({
             data: {
                 nome,
@@ -55,6 +61,7 @@ router.post("/principal-table", async (req, res) => {
                 zeramento,
                 genre: { connect: { id: genreId } },
                 system: { connect: { id: systemId } },
+                user: { connect: { id: userId } },
             },
         });
 
@@ -73,7 +80,7 @@ router.post("/principal-table", async (req, res) => {
 });
 
 
-router.delete("/principal-table/:id", async (req, res) => {
+router.delete("/user/:userId/principal-table/:id", async (req, res) => {
     const { id } = req.params;
 
     try {

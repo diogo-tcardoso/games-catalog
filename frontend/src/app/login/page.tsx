@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Eye, EyeClosed } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Footer from "@/components/page-component/footer";
+import { useUser } from "@/context/userContext";
 
 type FormData = {
     email: string
@@ -14,6 +15,7 @@ type FormData = {
 }
 
 export default function LoginPage() {
+    const { setUser } = useUser(); // ✅ useUser hook to set user context
     const {
         register,
         handleSubmit,
@@ -28,20 +30,24 @@ export default function LoginPage() {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                },
+            },
                 body: JSON.stringify(data),
             });
 
             if (!response.ok) {
                 throw new Error("Erro ao fazer login");
             }
+
+            const result = await response.json();
+            setUser(result.user); // ✅ set user in context
+
+            alert("Login realizado com sucesso!");
+            router.push(`/user/${result.user.id}`); // ✅ redireciona corretamente
+
         } catch (error) {
             console.error("Erro ao fazer login:", error);
             alert("Erro ao fazer login. Por favor, tente novamente.");
-            return;
         }
-        alert("Login realizado com sucesso!");
-        router.push("/user");
     };
 
     return (

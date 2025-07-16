@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 const router = Router();
 
 //! GET todos os tipos
-router.get("/types", async (req, res) => {
+router.get("/user/:userId/types", async (req, res) => {
     try {
         const types = await prisma.type.findMany({
             orderBy: { name: "asc" }
@@ -18,7 +18,7 @@ router.get("/types", async (req, res) => {
 });
 
 //! POST para criar um novo tipo
-router.post("/types", async (req, res) => {
+router.post("/user/:userId/types", async (req, res) => {
     const { name, color } = req.body;
 
     if (!name || !color) {
@@ -26,8 +26,19 @@ router.post("/types", async (req, res) => {
     }
 
     try {
+        // Adapte a obtenção do userId conforme sua lógica de autenticação
+        const { userId } = req.body;
+        if (!userId) {
+            res.status(400).json({ message: "Usuário é obrigatório" });
+        }
         const newType = await prisma.type.create({
-            data: { name, color }
+            data: {
+                name,
+                color,
+                user: {
+                    connect: { id: userId }
+                }
+            }
         });
         res.status(201).json(newType);
     } catch (error) {
@@ -37,7 +48,7 @@ router.post("/types", async (req, res) => {
 });
 
 //! DELETE para remover um tipo
-router.delete("/types/:id", async (req, res) => {
+router.delete("/user/:userId/types/:id", async (req, res) => {
     const { id } = req.params;
 
     try {

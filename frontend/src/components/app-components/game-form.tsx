@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { getTypes, Type } from "@/lib/api/type-api";
-import { getGenres, Genre } from "@/lib/api/genre-api";
-import { getSystems, System } from "@/lib/api/system-api";
+import { useState } from "react";
+import { Type } from "@/lib/api/type-api";
+import { Genre } from "@/lib/api/genre-api";
+import { System } from "@/lib/api/system-api";
 import { addNewGame, Game } from "@/lib/api/game-api";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 
 const initialState: Game = {
     nome: "",
@@ -16,66 +16,27 @@ const initialState: Game = {
     dificuldade: "",
     zeramento: "",
     systemId: 0,
+    UserId: 0,
 }
 
-export default function GameForm({onCreate}: {onCreate: () => void}) {
+type Props = {
+    userId: number;
+    systems: System[];
+    genres: Genre[];
+    types: Type[];
+    onCreate: () => void;
+};
+
+
+
+export default function GameForm({ userId, systems, genres, types, onCreate }: Props) {
     const [game, setGame] = useState<Game>(initialState);
-    const [systems, setSystems] = useState<System[]>([]);
-    const [genres, setGenres] = useState<Genre[]>([]);
-    const [types, setTypes] = useState<Type[]>([]);
-    const [loadingSystems, setLoadingSystems] = useState(true);
-    const [loadingGenres, setLoadingGenres] = useState(true);
-    const [loadingTypes, setLoadingTypes] = useState(true);
     const [iniciado, setIniciado] = useState<Dayjs | null>(null);
     const [finalizado, setFinalizado] = useState<Dayjs | null>(null);
 
 
     const formGroup = "flex flex-row m-0.5"
     const button = "bg-gradient-to-br from-[#0095F7] to-[#0076D3] border border-[#005DAB] text-white rounded-[20px] font-sans p-2 cursor-pointer text-[16px] font-bold m-3 min-w-30 hover:bg-gradient-to-l from-#0076D3 to-#005DAB"
-
-    useEffect(() => {
-        const fetchSystems = async () => {
-            try {
-                const systemsData = await getSystems();
-                setSystems(systemsData);
-            } catch (error) {
-                console.error("Error fetching systems:", error);
-            } finally {
-                setLoadingSystems(false);
-            }
-        };
-
-        fetchSystems();
-    }, [])
-
-    useEffect(() => {
-        const fetchGenres = async () => {
-            try {
-                const response = await getGenres();
-                setGenres(response);
-            } catch (error) {
-                console.error("Error fetching genres:", error);
-            } finally {
-                setLoadingGenres(false);
-            }
-        };
-
-        fetchGenres();
-    }, []);
-
-    useEffect(() => {
-        const fetchTypes = async () => {
-            try {
-                const response = await getTypes();
-                setTypes(response);
-            } catch (error) {
-                console.error("Error fetching types:", error);
-            } finally {
-                setLoadingTypes(false);
-            }
-        }
-        fetchTypes();
-    }, [])
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -122,10 +83,11 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
             ...game,
             iniciado: iniciado?.toDate() || new Date(),
             finalizado: finalizado?.toDate() || new Date(),
+            UserId: userId,
         };
     
         try {
-            await addNewGame(gameToSubmit);
+            await addNewGame(userId, gameToSubmit);
             setGame(initialState);
             setIniciado(null);
             setFinalizado(null);
@@ -154,70 +116,54 @@ export default function GameForm({onCreate}: {onCreate: () => void}) {
                 <div className={formGroup}>
                     <label className="flex m-0.5 font-bold font-sans text-black justify-between">
                         Console:
-                        <select name="systemId" value={game.systemId} onChange={handleChange} style={{marginLeft:"10px"}} disabled={loadingSystems}>
-                            {loadingSystems ? (
-                                <option>Carregando sistemas...</option>
-                            ) : (
-                                <>
-                                    <option value={0}>Selecione um sistema</option>
-                                    {systems.map((system) => (
-                                        <option key={system.id} value={system.id}>
-                                            {system.name}
-                                        </option>
-                                    ))}
-                                </>
-                            )}
+                        <select name="systemId" value={game.systemId} onChange={handleChange}>
+                            <option value={0}>Selecione um sistema</option>
+                            {systems.map((system) => (
+                                <option key={system.id} value={system.id}>{system.name}</option>
+                            ))}
                         </select>
                     </label>
                 </div>
                 <div className={formGroup}>
                     <label className="flex m-0.5 font-bold font-sans text-black justify-between">
                         Genero:
-                            <select name="genreId" value={game.genreId} onChange={handleChange} style={{marginLeft:"10px"}}>
-                            {loadingGenres ? (
-                                <option>Carregando gêneros...</option>
-                            ) : (
-                                <>
-                                    <option value={0}>Selecione um sistema</option>
-                                    {genres.map((genre) => (
-                                        <option key={genre.id} value={genre.id}>
-                                            {genre.name}
-                                        </option>
-                                    ))}
-                                </>
-                            )}
-                            </select>
+                        <select name="genreId" value={game.genreId} onChange={handleChange}>
+                            <option value={0}>Selecione um sistema</option>
+                            {genres.map((genre) => (
+                                <option key={genre.id} value={genre.id}>{genre.name}</option>
+                            ))}
+                        </select>
                     </label>
                 </div>
                 <div className={formGroup}>
                     <label className="flex m-0.5 font-bold font-sans text-black justify-between">
                         Tipo:
-                        <select name="typeId" value={game.typeId} onChange={handleChange} style={{marginLeft:"10px"}}>
-                            {loadingTypes ? (
-                                <option>Carregando tipos...</option>
-                            ) : (
-                                <>
-                                    <option value={0}>Selecione um tipo</option>
-                                    {types.map((type) => (
-                                        <option key={type.id} value={type.id}>
-                                            {type.name}
-                                        </option>
-                                    ))}
-                                </>
-                            )}
-                        </ select>
+                        <select name="typeId" value={game.typeId} onChange={handleChange}>
+                            <option value={0}>Selecione um sistema</option>
+                            {types.map((type) => (
+                                <option key={type.id} value={type.id}>{type.name}</option>
+                            ))}
+                        </select>
                     </label>
                 </div>
                 <div className={formGroup}>
                     <label className="flex m-0.5 font-bold font-sans text-black justify-between">
                         Iniciado:&nbsp;
-                        <input />
+                        <input 
+                            type="date"
+                            name="iniciado"
+                            onChange={(e) => setIniciado(dayjs(e.target.value))}
+                        />
                     </label>
                 </div>
                 <div className={formGroup}>
                     <label className="flex m-0.5 font-bold font-sans text-black justify-between">
                         Finalizado:&nbsp;
-                        <input />
+                        <input 
+                            type="date"
+                            name="finalizado"
+                            onChange={(e) => setFinalizado(dayjs(e.target.value))}
+                        />
                     </label>
                 </div>
                 <div className={formGroup}>

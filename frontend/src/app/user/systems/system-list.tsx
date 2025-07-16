@@ -3,7 +3,6 @@ import { System, addSystem } from '@/lib/api/system-api'
 import { useUser } from '@/context/userContext';
 
 type Props = {
-    userId: number;
     onAdd: (system: System) => void;
     systems: System[];
 };
