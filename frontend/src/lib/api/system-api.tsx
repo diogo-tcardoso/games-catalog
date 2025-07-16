@@ -5,12 +5,13 @@ export interface System {
     id: number;
     name: string;
     color: string;
+    userId: number;
 }
 
 //! Function to fetch all systems
-export const getSystems = async () => {
+export const getSystems = async (userId: number): Promise<System[]> => {
     try {
-        const response = await fetch(`${BASE_URL}/systems`);
+        const response = await fetch(`${BASE_URL}/user/${userId}/systems`);
         if (!response.ok) {
             throw new Error("Failed to fetch systems");
         }
@@ -22,10 +23,10 @@ export const getSystems = async () => {
 };
 
 //! Function to create a new system
-export type NewSystem = Omit<System, 'id'>;
-export const addSystem = async (systemData: NewSystem): Promise<System> => {
+export type NewSystem = Omit<System, 'id' | 'userId'>;
+export const addSystem = async (userId: number, systemData: NewSystem): Promise<System> => {
     try {
-        const response = await fetch(`${BASE_URL}/systems`, {
+        const response = await fetch(`${BASE_URL}/user/${userId}/systems`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -43,9 +44,9 @@ export const addSystem = async (systemData: NewSystem): Promise<System> => {
 };
 
 //! Function to delete a system
-export const deleteSystem = async (id: number) => {
+export const deleteSystem = async (userId:number, id: number) => {
     try {
-        const response = await fetch(`${BASE_URL}/systems/${id}`, {
+        const response = await fetch(`${BASE_URL}/user/${userId}/systems/${id}`, {
             method: "DELETE",
         });
         if (!response.ok) {

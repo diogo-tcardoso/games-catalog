@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 const router = Router();
 
 //! GET todos os sistemas
-router.get("/systems", async (req, res) => {
+router.get("user/:userId/systems", async (req, res) => {
     try {
         const systems = await prisma.system.findMany({
             orderBy: { name: "asc" }
@@ -18,8 +18,8 @@ router.get("/systems", async (req, res) => {
 });
 
 //! POST para criar um novo sistema
-router.post("/systems", async (req, res) => {
-    const { name, color } = req.body;
+router.post("user/:userId/systems", async (req, res) => {
+    const { name, color, userId } = req.body;
 
     if (!name || !color) {
         res.status(400).json({ message: "Nome e cor são obrigatórios" });
@@ -27,7 +27,7 @@ router.post("/systems", async (req, res) => {
 
     try {
         const newSystem = await prisma.system.create({
-            data: { name, color }
+            data: { name, color, userId }
         });
         res.status(201).json(newSystem);
     } catch (error) {
@@ -37,7 +37,7 @@ router.post("/systems", async (req, res) => {
 });
 
 //! DELETE para remover um sistema
-router.delete("/systems/:id", async (req, res) => {
+router.delete("user/systems/:id", async (req, res) => {
     const { id } = req.params;
 
     try {
