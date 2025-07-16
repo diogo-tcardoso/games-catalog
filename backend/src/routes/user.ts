@@ -1,15 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import { Router } from "express";
+import { getUserById } from "../controller/user-controller";
 
-const prisma = new PrismaClient();
+const router = Router();
+router.get("/user/:id", getUserById);
 
-export async function getUserByEmail(email: string) {
-    try {
-        const user = await prisma.user.findUnique({
-        where: { email },
-        });
-        return user;
-    } catch (error) {
-        console.error("Error fetching user by email:", error);
-        throw new Error("Could not fetch user");
-    }
-}
+export default router;
