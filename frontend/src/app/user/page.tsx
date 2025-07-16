@@ -4,10 +4,11 @@ import { Type, getTypes } from "@/lib/api/type-api";
 import { Genre, getGenres } from "@/lib/api/genre-api";
 import { System, getSystems } from "@/lib/api/system-api";
 import { Game, getPrincipalTable } from "@/lib/api/game-api";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import GameList from "@/components/app-components/game-list";
 import Modal from "@/components/app-components/modal";
 import GameForm from "@/components/app-components/game-form";
+import { useParams } from "next/navigation";
 
 export default function HomePage() {
     const [games, setGames] = useState<Game[]>([]);
@@ -15,16 +16,19 @@ export default function HomePage() {
     const [genres, setGenres] = useState<Genre[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [ types, setTypes ] = useState<Type[]>([]);
+
+    const params = useParams();
+    const userId = Number(params.userId);
     
     const fetchGames = async () => {
         const data = await getPrincipalTable();
         setGames(data);
     }
 
-    const fetchSystems = async () => {
-        const data = await getSystems();
+    const fetchSystems = useCallback(async () => {
+        const data = await getSystems(userId);
         setSystems(data);
-    }
+    }, [userId]);
 
     const fetchGenres = async () => {
         const data = await getGenres();
@@ -41,7 +45,7 @@ export default function HomePage() {
         fetchSystems();
         fetchGenres();
         fetchTypes();
-    }, []);    
+    }, [fetchSystems]);    
 
     return (
         <>
